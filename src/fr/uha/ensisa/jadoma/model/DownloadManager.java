@@ -1,5 +1,17 @@
 package fr.uha.ensisa.jadoma.model;
 
-public class DownloadManager {
+import java.util.ArrayList;
+import java.util.List;
 
+public class DownloadManager {
+	
+	private List<Download> listDownloads;
+	
+	public DownloadManager() {
+		this.listDownloads = new ArrayList<Download>();
+	}
+	
+	public List<Download> getListDownloads() {
+		return listDownloads;
+	}
 }
