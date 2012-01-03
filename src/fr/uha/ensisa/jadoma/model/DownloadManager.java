@@ -23,6 +23,15 @@ public class DownloadManager {
 	
 	@Override
 	public String toString() {
-		return "[scheduler: " + scheduler.toString() + ", downloads: " + listDownloads.toString() + "]";
+		StringBuilder res = new StringBuilder("[scheduler: ");
+		res.append(scheduler.toString()).append(", ").append(System.getProperty("line.separator"));
+		res.append("downloads: ");
+		
+		for (Download d : listDownloads)
+			res.append(d.toString()).append(System.getProperty("line.separator"));
+		
+		res.append("]");
+		
+		return res.toString();
 	}
 }
