@@ -18,6 +18,18 @@ public class HttpUtil {
 		try {
 			Socket s = new Socket();
 			s.bind(new InetSocketAddress(getInet4AddressFromNic(nic), 0));
+			return isSocketConnectedToInternet(s);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public static boolean isDefaultNicConnectedToInternet() {
+		return isSocketConnectedToInternet(new Socket());
+	}
+	
+	private static boolean isSocketConnectedToInternet(Socket s) {
+		try {
 			s.connect(new InetSocketAddress(InetAddress.getByName(WEB_SITE_TEST_CONNECTION_URL), 80));
 			
 			PrintWriter pw = new PrintWriter(s.getOutputStream(), false);
