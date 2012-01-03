@@ -11,5 +11,7 @@ public class ControllerFrmMain {
 	public ControllerFrmMain(FrmMain frmMain) {
 		this.frmMain = frmMain;
 		this.downloadManager = new DownloadManager();
+		
+		this.frmMain.setLabelDisplayDownloadManagerText(this.downloadManager.toString());
 	}
 }

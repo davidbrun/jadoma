@@ -20,4 +20,9 @@ public class DownloadManager {
 	public Scheduler getScheduler() {
 		return scheduler;
 	}
+	
+	@Override
+	public String toString() {
+		return "[scheduler: " + scheduler.toString() + ", downloads: " + listDownloads.toString() + "]";
+	}
 }
