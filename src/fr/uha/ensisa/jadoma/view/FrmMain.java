@@ -2,11 +2,11 @@ package fr.uha.ensisa.jadoma.view;
 
 import javax.swing.JFrame;
 
-import fr.uha.ensisa.jadoma.controler.ControlerFrmMain;
+import fr.uha.ensisa.jadoma.controler.ControllerFrmMain;
 
 public class FrmMain extends JFrame {
 	
-	private ControlerFrmMain ctrlFrmMain;
+	private ControllerFrmMain ctrlFrmMain;
 	
 	/**
 	 * 
@@ -15,6 +15,6 @@ public class FrmMain extends JFrame {
 	
 	public FrmMain() {
 		super();
-		this.ctrlFrmMain = new ControlerFrmMain(this);
+		this.ctrlFrmMain = new ControllerFrmMain(this);
 	}
 }
