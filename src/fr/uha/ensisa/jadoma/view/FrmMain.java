@@ -2,7 +2,7 @@ package fr.uha.ensisa.jadoma.view;
 
 import javax.swing.JFrame;
 
-import fr.uha.ensisa.jadoma.controler.ControllerFrmMain;
+import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
 
 public class FrmMain extends JFrame {
 	

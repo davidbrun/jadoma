@@ -1,4 +1,4 @@
-package fr.uha.ensisa.jadoma.controler;
+package fr.uha.ensisa.jadoma.controller;
 
 import fr.uha.ensisa.jadoma.view.FrmMain;
 
