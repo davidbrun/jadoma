@@ -1,5 +1,12 @@
 package fr.uha.ensisa.jadoma.controler;
 
-public class ControlerFrmMain {
+import fr.uha.ensisa.jadoma.view.FrmMain;
 
+public class ControlerFrmMain {
+	
+	private FrmMain frmMain;
+	
+	public ControlerFrmMain(FrmMain frmMain) {
+		this.frmMain = frmMain;
+	}
 }
