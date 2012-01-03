@@ -6,12 +6,18 @@ import java.util.List;
 public class DownloadManager {
 	
 	private List<Download> listDownloads;
+	private Scheduler scheduler;
 	
 	public DownloadManager() {
 		this.listDownloads = new ArrayList<Download>();
+		this.scheduler = new Scheduler();
 	}
 	
 	public List<Download> getListDownloads() {
 		return listDownloads;
+	}
+	
+	public Scheduler getScheduler() {
+		return scheduler;
 	}
 }
