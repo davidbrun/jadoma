@@ -2,6 +2,7 @@ package fr.uha.ensisa.jadoma.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -26,7 +27,8 @@ public class SimpleDownloadPanel extends JPanel {
 		// Initialization of all the SWING components of the frame
 		this.initSwingComponents();
 		labelName.setText(name);
-		progressBar.setValue(34);
+		Random r = new Random();
+		progressBar.setValue(r.nextInt(100));
 	}
 
 	private void initSwingComponents() {
@@ -37,7 +39,7 @@ public class SimpleDownloadPanel extends JPanel {
 		labelName = new JLabel();
 		progressBar = new JProgressBar(0, 100);
 		
-		labelName.setAlignmentX(RIGHT_ALIGNMENT);
+		labelName.setAlignmentX(LEFT_ALIGNMENT);
 		labelName.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		progressBar.setMinimumSize(new Dimension(50, 500));

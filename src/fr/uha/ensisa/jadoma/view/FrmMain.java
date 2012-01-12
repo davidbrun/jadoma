@@ -2,8 +2,11 @@ package fr.uha.ensisa.jadoma.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -82,6 +85,8 @@ public class FrmMain extends JFrame {
 		// Add SWING components
 		this.textFieldDownloadURL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.textFieldDownloadURL.setAlignmentY(Component.TOP_ALIGNMENT);
+		this.textFieldDownloadURL.setMaximumSize(new Dimension(Integer.MAX_VALUE, 0));
+		
 		this.buttonAct.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.buttonAct.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.buttonDisplayNics.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -136,7 +141,6 @@ public class FrmMain extends JFrame {
 			
 			@Override
 			public void componentResized(ComponentEvent arg0) {
-				System.out.println(arg0);
 				setPreferredSize(getSize());
 			}
 			
@@ -156,6 +160,7 @@ public class FrmMain extends JFrame {
 		panel.setAlignmentY(BOTTOM_ALIGNMENT);
 		
 		this.scrollPanel.add(panel);
+		
 	}
 
 	public void clearURLField() {
