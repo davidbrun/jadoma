@@ -3,6 +3,7 @@ package fr.uha.ensisa.jadoma.controller;
 import fr.uha.ensisa.jadoma.model.DownloadManager;
 import fr.uha.ensisa.jadoma.model.UniPartDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
+import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerFrmMain {
 	
@@ -17,13 +18,17 @@ public class ControllerFrmMain {
 	}
 
 	public void handleButtonActClick() {
-		this.downloadManager.getListDownloads().add(new UniPartDownload(frmMain.getTextFieldDownloadURL()));
-		
+		UniPartDownload dl = new UniPartDownload(frmMain.getTextFieldDownloadURL());
+		this.downloadManager.getListDownloads().add(dl);
+		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl.toString()));
+
 		this.updateLabelCaption();
 	}
 	
 	private void updateLabelCaption() {
 		this.frmMain.setLabelDisplayDownloadManagerText(this.downloadManager.toString());
+		
+		
 		this.frmMain.pack();
 	}
 }
