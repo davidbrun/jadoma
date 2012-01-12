@@ -25,7 +25,6 @@ import fr.uha.ensisa.jadoma.util.NicUtil;
 public class FrmMain extends JFrame {
 
 	// SWING fields
-	private JTextPane labelDisplayDownloadManagerText;
 	private JTextField textFieldDownloadURL;
 	private JButton buttonAct;
 	private JButton buttonDisplayNics;
@@ -61,10 +60,6 @@ public class FrmMain extends JFrame {
 		this.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		// Create SWING components
-		this.labelDisplayDownloadManagerText = new JTextPane();
-		this.labelDisplayDownloadManagerText.setBackground(null);
-		this.labelDisplayDownloadManagerText.setEditable(false);
-		this.labelDisplayDownloadManagerText.setBorder(null);
 		this.buttonAct = new JButton("Action");
 		this.buttonDisplayNics = new JButton("Nics");
 		this.textFieldDownloadURL = new JTextField("http://download.services.openoffice.org/files/localized/fr/3.3.0/OOo_3.3.0_MacOS_x86_install_fr.dmg");
@@ -84,8 +79,6 @@ public class FrmMain extends JFrame {
 		this.buttonAct.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.buttonDisplayNics.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.buttonDisplayNics.setAlignmentY(Component.CENTER_ALIGNMENT);
-		this.labelDisplayDownloadManagerText.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.labelDisplayDownloadManagerText.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		this.scrollDownloads.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
@@ -93,7 +86,6 @@ public class FrmMain extends JFrame {
 		contentPane.add(this.textFieldDownloadURL);
 		contentPane.add(this.buttonAct);
 		contentPane.add(this.buttonDisplayNics);
-		contentPane.add(this.labelDisplayDownloadManagerText);
 		contentPane.add(this.scrollDownloads);
 		
 		// Add listeners
@@ -129,10 +121,6 @@ public class FrmMain extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {}
 		});
-	}
-
-	public void setLabelDisplayDownloadManagerText(String textToDisplay) {
-		this.labelDisplayDownloadManagerText.setText(textToDisplay);
 	}
 	
 	public String getTextFieldDownloadURL() {

@@ -18,7 +18,11 @@ public class ControllerFrmMain {
 	}
 
 	public void handleButtonActClick() {
-		UniPartDownload dl = new UniPartDownload(frmMain.getTextFieldDownloadURL());
+		String url = frmMain.getTextFieldDownloadURL();
+		if(url.length() == 0)
+			return;
+		
+		UniPartDownload dl = new UniPartDownload(url);
 		this.downloadManager.getListDownloads().add(dl);
 		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl.toString()));
 		
@@ -28,7 +32,6 @@ public class ControllerFrmMain {
 	}
 	
 	private void updateLabelCaption() {
-		this.frmMain.setLabelDisplayDownloadManagerText(this.downloadManager.toString());
 		
 		
 		this.frmMain.pack();
