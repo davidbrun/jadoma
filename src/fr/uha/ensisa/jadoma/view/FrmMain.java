@@ -3,10 +3,16 @@ package fr.uha.ensisa.jadoma.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.net.SocketException;
 
 import javax.swing.BoxLayout;
@@ -40,6 +46,8 @@ public class FrmMain extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 6344324745845910099L;
+	private int last_width = 500;
+	private int last_height = 200;
 
 	public FrmMain() {
 		super();
@@ -81,6 +89,7 @@ public class FrmMain extends JFrame {
 		this.scrollDownloads.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
+		this.setPreferredSize(new Dimension(this.last_width, this.last_height));
 		
 		contentPane.add(this.textFieldDownloadURL);
 		contentPane.add(this.buttonAct);
@@ -119,6 +128,22 @@ public class FrmMain extends JFrame {
 			}
 			@Override
 			public void keyPressed(KeyEvent arg0) {}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				System.out.println(arg0);
+				setPreferredSize(getSize());
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {}
+			@Override
+			public void componentHidden(ComponentEvent arg0) {}
 		});
 	}
 	
