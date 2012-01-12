@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
