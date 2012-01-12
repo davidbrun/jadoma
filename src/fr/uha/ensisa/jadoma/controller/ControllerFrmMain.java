@@ -21,6 +21,8 @@ public class ControllerFrmMain {
 		UniPartDownload dl = new UniPartDownload(frmMain.getTextFieldDownloadURL());
 		this.downloadManager.getListDownloads().add(dl);
 		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl.toString()));
+		
+		this.frmMain.clearURLField();
 
 		this.updateLabelCaption();
 	}

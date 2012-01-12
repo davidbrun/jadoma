@@ -26,6 +26,7 @@ public class SimpleDownloadPanel extends JPanel {
 		// Initialization of all the SWING components of the frame
 		this.initSwingComponents();
 		labelName.setText(name);
+		progressBar.setValue(34);
 	}
 
 	private void initSwingComponents() {

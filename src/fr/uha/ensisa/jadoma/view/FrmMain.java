@@ -3,6 +3,8 @@ package fr.uha.ensisa.jadoma.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.SocketException;
@@ -112,6 +114,21 @@ public class FrmMain extends JFrame {
 				}
 			}
 		});
+		
+		this.textFieldDownloadURL.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent arg0) {}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {	
+					ctrlFrmMain.handleButtonActClick();
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+		});
 	}
 
 	public void setLabelDisplayDownloadManagerText(String textToDisplay) {
@@ -127,5 +144,9 @@ public class FrmMain extends JFrame {
 		panel.setAlignmentY(BOTTOM_ALIGNMENT);
 		
 		this.scrollPanel.add(panel);
+	}
+
+	public void clearURLField() {
+		this.textFieldDownloadURL.setText("");
 	}
 }
