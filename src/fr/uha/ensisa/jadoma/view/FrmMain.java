@@ -61,7 +61,7 @@ public class FrmMain extends JFrame {
 		// Create SWING components
 		this.buttonAct = new JButton("Action");
 		this.buttonDisplayNics = new JButton("Nics");
-		this.textFieldDownloadURL = new JTextField("http://download.services.openoffice.org/files/localized/fr/3.3.0/OOo_3.3.0_MacOS_x86_install_fr.dmg");
+		this.textFieldDownloadURL = new JTextField("http://test-debit.free.fr/image.iso");
 		this.scrollPanel = new JPanel();
 		this.scrollPanel.setBackground(Color.black);
 		this.scrollPanel.setLayout(new BoxLayout(this.scrollPanel, BoxLayout.Y_AXIS));
