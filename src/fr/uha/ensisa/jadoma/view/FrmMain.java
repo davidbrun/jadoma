@@ -96,6 +96,9 @@ public class FrmMain extends JFrame {
 		
 		this.setPreferredSize(new Dimension(this.last_width, this.last_height));
 		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+
 		contentPane.add(this.textFieldDownloadURL);
 		contentPane.add(this.buttonAct);
 		contentPane.add(this.buttonDisplayNics);
