@@ -2,22 +2,16 @@ package fr.uha.ensisa.jadoma.view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.net.SocketException;
-
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
 import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
 import fr.uha.ensisa.jadoma.util.NicUtil;
 
@@ -50,7 +43,7 @@ public class FrmMain extends JFrame {
 	 */
 	private static final long serialVersionUID = 6344324745845910099L;
 	private int last_width = 500;
-	private int last_height = 200;
+	private int last_height = 300;
 
 	public FrmMain() {
 		super();
@@ -162,8 +155,11 @@ public class FrmMain extends JFrame {
 		panel.setAlignmentX(CENTER_ALIGNMENT);
 		panel.setAlignmentY(BOTTOM_ALIGNMENT);
 		
-		this.scrollPanel.add(panel);
+		if (this.scrollPanel.getComponents().length != 0)
+			this.scrollPanel.add(Box.createVerticalStrut(5));
 		
+		this.scrollPanel.add(panel);
+		panel.setBackground(Color.yellow);
 	}
 
 	public void clearURLField() {

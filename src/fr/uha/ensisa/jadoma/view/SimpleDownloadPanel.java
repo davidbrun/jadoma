@@ -46,14 +46,12 @@ public class SimpleDownloadPanel extends JPanel {
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
 		progressBar.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		buttonStop.setAlignmentX(RIGHT_ALIGNMENT);
+		buttonStop.setAlignmentX(LEFT_ALIGNMENT);
 		buttonStop.setAlignmentY(TOP_ALIGNMENT);
 		
 		this.add(labelName);
 		this.add(progressBar);
 		this.add(buttonStop);
-		this.setVisible(true);
-		this.labelName.setVisible(true);
 	}
 	
 	public void setProgressValue(int value) {
