@@ -2,6 +2,7 @@ package fr.uha.ensisa.jadoma.controller;
 
 import fr.uha.ensisa.jadoma.model.DownloadManager;
 import fr.uha.ensisa.jadoma.model.UniPartDownload;
+import fr.uha.ensisa.jadoma.util.UrlUtil;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
@@ -22,18 +23,16 @@ public class ControllerFrmMain {
 		if(url.length() == 0)
 			return;
 		
-		UniPartDownload dl = new UniPartDownload(url);
+		UniPartDownload dl = new UniPartDownload(UrlUtil.getFileNameFromUrl(url), url);
 		this.downloadManager.getListDownloads().add(dl);
 		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl.toString()));
 		
 		this.frmMain.clearURLField();
-
+		
 		this.updateLabelCaption();
 	}
 	
 	private void updateLabelCaption() {
-		
-		
 		this.frmMain.pack();
 	}
 }
