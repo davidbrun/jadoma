@@ -52,7 +52,7 @@ public class HttpUtil {
 		}
 	}
 	
-	private static Inet4Address getInet4AddressFromNic(NetworkInterface nic) {
+	public static Inet4Address getInet4AddressFromNic(NetworkInterface nic) {
 		Inet4Address res = null;
 		Enumeration<InetAddress> it = nic.getInetAddresses();
 		while (it.hasMoreElements()) {
