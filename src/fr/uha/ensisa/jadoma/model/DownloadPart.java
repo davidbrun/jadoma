@@ -30,6 +30,8 @@ public abstract class DownloadPart {
 	
 	public abstract int getNbrOfCompletedBytes();
 	
+	public abstract void setNbrOfCompletedBytes(int nbrOfCompletedBytes);
+	
 	public int getDownloadPartSize() {
 		return this.endByte - this.beginByte;
 	}

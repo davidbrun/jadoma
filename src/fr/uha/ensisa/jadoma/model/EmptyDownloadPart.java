@@ -15,4 +15,7 @@ public class EmptyDownloadPart extends DownloadPart {
 	public int getNbrOfCompletedBytes() {
 		return 0;
 	}
+
+	@Override
+	public void setNbrOfCompletedBytes(int nbrOfCompletedBytes) { }
 }

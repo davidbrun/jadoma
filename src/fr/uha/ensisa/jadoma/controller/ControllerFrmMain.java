@@ -1,7 +1,9 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.net.MalformedURLException;
+
+import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadManager;
-import fr.uha.ensisa.jadoma.model.UniPartDownload;
 import fr.uha.ensisa.jadoma.util.UrlUtil;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
@@ -26,13 +28,26 @@ public class ControllerFrmMain {
 		if(url.length() == 0)
 			return;
 		
-		UniPartDownload dl = new UniPartDownload(UrlUtil.getFileNameFromUrl(url), url);
-		this.downloadManager.getListDownloads().add(dl);
-		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl));
+		Download dl = new Download(UrlUtil.getFileNameFromUrl(url), url);
+		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(this, dl);
 		
-		this.frmMain.clearURLField();
+		try {
+			this.downloadManager.addDownload(downloadPanel, dl);
+			this.frmMain.addDownloadPanel(downloadPanel);
+			this.frmMain.clearURLField();
+		} catch (MalformedURLException e) {
+			System.out.println(e.getMessage());
+		}
 		
 		this.updateLabelCaption();
+	}
+	
+	public DownloadManager getDownloadManager() {
+		return downloadManager;
+	}
+	
+	public FrmMain getFrmMain() {
+		return frmMain;
 	}
 	
 	private void updateLabelCaption() {

@@ -12,7 +12,9 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class HttpConnection {
     
@@ -90,8 +92,12 @@ public class HttpConnection {
         OutputStream out = this.socket.getOutputStream();
         PrintWriter pw = new PrintWriter(out, false);
         pw.print("GET /" + this.url.getFile().replaceFirst("/", "") + " HTTP/1.1\r\n");
-        for (int i=0; i < this.mapHttpHeaders.size(); i++)
-            pw.print(this.mapHttpHeaders.get(i) + "\r\n");
+        Iterator<Entry<String, String>> it = this.mapHttpHeaders.entrySet().iterator();
+        while (it.hasNext())
+        {
+        	Entry<String, String> current = it.next();
+            pw.print(current.getKey() + ": " + current.getValue() + "\r\n");
+        }
         
         pw.print("\r\n");
         pw.flush();

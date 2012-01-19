@@ -15,4 +15,7 @@ public class CompletedDownloadPart extends DownloadPart {
 	public int getNbrOfCompletedBytes() {
 		return super.getDownloadPartSize();
 	}
+
+	@Override
+	public void setNbrOfCompletedBytes(int nbrOfCompletedBytes) { }
 }

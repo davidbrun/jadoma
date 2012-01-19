@@ -2,11 +2,16 @@ package fr.uha.ensisa.jadoma.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+
+import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
 import fr.uha.ensisa.jadoma.controller.ControllerSimpleDownloadPanel;
 import fr.uha.ensisa.jadoma.model.Download;
 
@@ -15,6 +20,7 @@ public class SimpleDownloadPanel extends JPanel {
 	// SWING fields
 	private JLabel labelName;
 	private JProgressBar progressBar;
+	private JButton buttonStart;
 	private JButton buttonStop;
 
 	// Controller fields
@@ -25,14 +31,14 @@ public class SimpleDownloadPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -6443999510840611020L;
 	
-	public SimpleDownloadPanel(Download download) {
+	public SimpleDownloadPanel(ControllerFrmMain ctrlFrmMain, Download download) {
 		super();
 
 		// Initialization of all the SWING components of the frame
 		this.initSwingComponents();
 		
 		// Initialization of the associated controller
-		this.ctrlDownloadPanel = new ControllerSimpleDownloadPanel(this, download);
+		this.ctrlDownloadPanel = new ControllerSimpleDownloadPanel(ctrlFrmMain, this, download);
 		
 		// Initialization of the values of the SWING components
 		this.initComponentValues();
@@ -43,6 +49,7 @@ public class SimpleDownloadPanel extends JPanel {
 		
 		labelName = new JLabel();
 		progressBar = new JProgressBar(0, 100);
+		buttonStart = new JButton("Start");
 		buttonStop = new JButton("Stop");
 		
 		labelName.setAlignmentX(LEFT_ALIGNMENT);
@@ -54,12 +61,24 @@ public class SimpleDownloadPanel extends JPanel {
 		progressBar.setAlignmentX(LEFT_ALIGNMENT);
 		progressBar.setAlignmentY(Component.TOP_ALIGNMENT);
 		
+		buttonStart.setAlignmentX(LEFT_ALIGNMENT);
+		buttonStart.setAlignmentY(TOP_ALIGNMENT);
 		buttonStop.setAlignmentX(LEFT_ALIGNMENT);
 		buttonStop.setAlignmentY(TOP_ALIGNMENT);
 		
+		// Add the SWING components
 		this.add(labelName);
 		this.add(progressBar);
+		this.add(buttonStart);
 		this.add(buttonStop);
+		
+		// Add the listeners
+		this.buttonStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ctrlDownloadPanel.handleButtonStartClick();
+			}
+		});
 	}
 	
 	private void initComponentValues() {
