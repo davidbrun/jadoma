@@ -3,6 +3,7 @@ package fr.uha.ensisa.jadoma.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Download {
 	
@@ -35,7 +36,9 @@ public abstract class Download {
 		if (currentState == DownloadState.COMPLETED)
 			return 1.0;
 		else
-			return 0.0;
+			//return 0.0;
+			//TODO: remove random value
+			return new Random().nextDouble();
 	}
 	
 	public String getName() {

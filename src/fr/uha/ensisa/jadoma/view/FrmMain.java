@@ -32,9 +32,6 @@ public class FrmMain extends JFrame {
 	private JScrollPane scrollDownloads;
 	private JPanel scrollPanel;
 	
-	// Model fields
-	
-	
 	// Controller fields
 	private ControllerFrmMain ctrlFrmMain;
 
@@ -43,7 +40,7 @@ public class FrmMain extends JFrame {
 	 */
 	private static final long serialVersionUID = 6344324745845910099L;
 	private int last_width = 500;
-	private int last_height = 300;
+	private int last_height = 400;
 
 	public FrmMain() {
 		super();
@@ -156,7 +153,7 @@ public class FrmMain extends JFrame {
 		panel.setAlignmentY(BOTTOM_ALIGNMENT);
 		
 		if (this.scrollPanel.getComponents().length != 0)
-			this.scrollPanel.add(Box.createVerticalStrut(5));
+			this.scrollPanel.add(Box.createVerticalStrut(3));
 		
 		this.scrollPanel.add(panel);
 		panel.setBackground(Color.yellow);

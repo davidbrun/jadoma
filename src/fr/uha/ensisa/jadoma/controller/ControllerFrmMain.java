@@ -8,7 +8,10 @@ import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerFrmMain {
 	
+	// Associated view
 	private FrmMain frmMain;
+	
+	// Model fields
 	private DownloadManager downloadManager;
 	
 	public ControllerFrmMain(FrmMain frmMain) {
@@ -25,7 +28,7 @@ public class ControllerFrmMain {
 		
 		UniPartDownload dl = new UniPartDownload(UrlUtil.getFileNameFromUrl(url), url);
 		this.downloadManager.getListDownloads().add(dl);
-		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl.toString()));
+		this.frmMain.addDownloadPanel(new SimpleDownloadPanel(dl));
 		
 		this.frmMain.clearURLField();
 		
