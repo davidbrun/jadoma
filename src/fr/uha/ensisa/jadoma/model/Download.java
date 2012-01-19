@@ -38,6 +38,34 @@ public abstract class Download {
 			return 0.0;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public String getUrlFrom() {
+		return urlFrom;
+	}
+
+	public String getFileDestination() {
+		return fileDestination;
+	}
+
+	public DownloadState getCurrentState() {
+		return currentState;
+	}
+
+	public DownloadState getPreviousState() {
+		return previousState;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
 	@Override
 	public String toString() {
 		return this.urlFrom;
