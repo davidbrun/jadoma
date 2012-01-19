@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.SocketException;
@@ -76,19 +76,15 @@ public class FrmMain extends JFrame {
 		this.textFieldDownloadURL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.textFieldDownloadURL.setAlignmentY(Component.TOP_ALIGNMENT);
 		this.textFieldDownloadURL.setMaximumSize(new Dimension(Integer.MAX_VALUE, 0));
-		
 		this.buttonAct.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.buttonAct.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.buttonDisplayNics.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.buttonDisplayNics.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		
 		this.setPreferredSize(new Dimension(this.last_width, this.last_height));
-		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-
 		contentPane.add(this.textFieldDownloadURL);
 		contentPane.add(this.buttonAct);
 		contentPane.add(this.buttonDisplayNics);
@@ -113,34 +109,20 @@ public class FrmMain extends JFrame {
 			}
 		});
 		
-		this.textFieldDownloadURL.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent arg0) {}
-
+		this.textFieldDownloadURL.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {	
 					ctrlFrmMain.handleButtonActClick();
 				}
 			}
-			@Override
-			public void keyPressed(KeyEvent arg0) {}
 		});
 		
-		this.addComponentListener(new ComponentListener() {
-			@Override
-			public void componentShown(ComponentEvent arg0) {}
-			
+		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent arg0) {
 				setPreferredSize(getSize());
 			}
-			
-			@Override
-			public void componentMoved(ComponentEvent arg0) {}
-			@Override
-			public void componentHidden(ComponentEvent arg0) {}
 		});
 	}
 	
