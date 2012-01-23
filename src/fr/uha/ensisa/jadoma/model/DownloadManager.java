@@ -56,14 +56,14 @@ public class DownloadManager {
 		this.listDownloadThreads.get(this.listDownloads.indexOf(download)).interrupt();
 	}
 	
-	public void startDownloading() {
-		for (int i = 0; i < this.listDownloads.size(); i++)
-			this.listDownloadThreads.get(i).start();
+	public void startDownloading() throws MalformedURLException {
+		for (Download d : this.listDownloads)
+			this.startDownloading(d);
 	}
 	
 	public void stopDownloading() {
-		for (int i = 0; i < this.listDownloads.size(); i++)
-			this.listDownloadThreads.get(i).interrupt();
+		for (Download d : this.listDownloads)
+			this.stopDownloading(d);
 	}
 	
 	@Override
