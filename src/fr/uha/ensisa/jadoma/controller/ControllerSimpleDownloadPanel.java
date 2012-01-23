@@ -1,14 +1,11 @@
 package fr.uha.ensisa.jadoma.controller;
 
-import javax.swing.JOptionPane;
+import java.net.MalformedURLException;
 
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerSimpleDownloadPanel {
-	
-	// Main controller
-	private ControllerFrmMain ctrlFrmMain;
 	
 	// Associated view
 	private SimpleDownloadPanel downloadPanel;
@@ -16,8 +13,7 @@ public class ControllerSimpleDownloadPanel {
 	// Model fields
 	private Download download;
 
-	public ControllerSimpleDownloadPanel(ControllerFrmMain ctrlFrmMain, SimpleDownloadPanel downloadPanel, Download download) {
-		this.ctrlFrmMain = ctrlFrmMain;
+	public ControllerSimpleDownloadPanel(SimpleDownloadPanel downloadPanel, Download download) {
 		this.downloadPanel = downloadPanel;
 		this.download = download;
 	}
@@ -26,8 +22,19 @@ public class ControllerSimpleDownloadPanel {
 		return download;
 	}
 	
+	public SimpleDownloadPanel getSimpleDownloadPanel() {
+		return downloadPanel;
+	}
+	
 	public void handleButtonStartClick() {
-		JOptionPane.showMessageDialog(ctrlFrmMain.getFrmMain(), "Début du download");
-		ctrlFrmMain.getDownloadManager().startDownloading(download);
+		try {
+			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().startDownloading(download);
+		} catch (MalformedURLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void handleButtonStopClick() {
+		ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().stopDownloading(download);
 	}
 }

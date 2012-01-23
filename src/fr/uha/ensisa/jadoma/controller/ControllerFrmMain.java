@@ -29,10 +29,10 @@ public class ControllerFrmMain {
 			return;
 		
 		Download dl = new Download(UrlUtil.getFileNameFromUrl(url), url);
-		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(this, dl);
+		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
 		
 		try {
-			this.downloadManager.addDownload(downloadPanel, dl);
+			this.downloadManager.addDownload(dl);
 			this.frmMain.addDownloadPanel(downloadPanel);
 			this.frmMain.clearURLField();
 		} catch (MalformedURLException e) {

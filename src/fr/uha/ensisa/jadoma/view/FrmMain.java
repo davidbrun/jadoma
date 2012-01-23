@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
+import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.util.NicUtil;
 
 public class FrmMain extends JFrame {
@@ -32,9 +32,6 @@ public class FrmMain extends JFrame {
 	private JScrollPane scrollDownloads;
 	private JPanel scrollPanel;
 	
-	// Controller fields
-	private ControllerFrmMain ctrlFrmMain;
-
 	/**
 	 * 
 	 */
@@ -49,7 +46,7 @@ public class FrmMain extends JFrame {
 		this.initSwingComponents();
 
 		// Initialization of the associated controller
-		this.ctrlFrmMain = new ControllerFrmMain(this);
+		ControllerLocator.getInstance().createCtrlFrmMain(this);
 
 		// Ask the layout manager to do its work
 		this.pack();
@@ -94,7 +91,7 @@ public class FrmMain extends JFrame {
 		this.buttonAct.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlFrmMain.handleButtonActClick();
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonActClick();
 			}
 		});
 		
@@ -113,7 +110,7 @@ public class FrmMain extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {	
-					ctrlFrmMain.handleButtonActClick();
+					ControllerLocator.getInstance().getCtrlFrmMain().handleButtonActClick();
 				}
 			}
 		});

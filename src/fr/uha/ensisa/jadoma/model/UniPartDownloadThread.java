@@ -12,7 +12,6 @@ public class UniPartDownloadThread extends DownloadThread {
 	
 	private static final String DESTINATION_DIRECTORY = System.getProperty("user.home") + "/";
 	private static final int MAX_BUFFER_SIZE = 1024;
-	private boolean isRunning = false;
 	private HttpConnection httpConnection;
     private RandomAccessFile fileDestination;
 	
@@ -21,7 +20,8 @@ public class UniPartDownloadThread extends DownloadThread {
 		this.httpConnection = new HttpConnection(download.getUrlFrom());
 		
 		// Create the parts of the download (in that case just one)
-		this.download.getListDownloadParts().add(new ActiveDownloadPart(0, this.download.getSize()));
+		if (this.download.getListDownloadParts().size() == 0)
+			this.download.getListDownloadParts().add(new ActiveDownloadPart(0, this.download.getSize()));
 		
 		// Create the output file
 		try {
@@ -37,7 +37,7 @@ public class UniPartDownloadThread extends DownloadThread {
 			this.isRunning = true;
 			
 			ActiveDownloadPart downloadPart = (ActiveDownloadPart) this.download.getListDownloadParts().get(0);
-			this.httpConnection.setRange(downloadPart.getBeginByte(), downloadPart.getEndByte());
+			this.httpConnection.setRange(downloadPart.getNbrOfCompletedBytes(), downloadPart.getEndByte());
 			this.fileDestination.seek(downloadPart.getNbrOfCompletedBytes());
             InputStream in = this.httpConnection.getInputStream();
             
@@ -90,23 +90,23 @@ public class UniPartDownloadThread extends DownloadThread {
             in.close();
             this.fileDestination.close();
             this.isRunning = false;
+            this.isDead = true;
         } catch (Exception ex) {
             this.isRunning = false;
+            this.isDead = true;
         }
 	}
 	
 	@Override
 	public void interrupt() {
 		try {
+			super.interrupt();
 			this.httpConnection.getInputStream().close();
 			this.fileDestination.close();
 			this.isRunning = false;
+			this.isDead = true;
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	public boolean isRunning() {
-		return isRunning;
 	}
 }

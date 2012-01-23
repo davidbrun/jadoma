@@ -3,8 +3,7 @@ package fr.uha.ensisa.jadoma.model;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
+import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 
 public class DownloadManager {
 	
@@ -30,13 +29,27 @@ public class DownloadManager {
 		return scheduler;
 	}
 	
-	public void addDownload(SimpleDownloadPanel downloadPanel, Download download) throws MalformedURLException {
+	public void addDownload(Download download) throws MalformedURLException {
 		this.listDownloads.add(download);
-		this.listDownloadThreads.add(new UniPartDownloadThread(downloadPanel, download));
+		this.listDownloadThreads.add(new UniPartDownloadThread(
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(download).getSimpleDownloadPanel(),
+				download));
 	}
 	
-	public void startDownloading(Download download) {
-		this.listDownloadThreads.get(this.listDownloads.indexOf(download)).start();
+	public void startDownloading(Download download) throws MalformedURLException {
+		int downloadIndex = this.listDownloads.indexOf(download);
+		DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
+		
+		if (tmp.isDead())
+		{
+			this.listDownloadThreads.remove(tmp);
+			tmp = null;
+			tmp = new UniPartDownloadThread(
+					ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(download).getSimpleDownloadPanel(),
+					download);
+			this.listDownloadThreads.add(downloadIndex, (DownloadThread) tmp);
+		}
+		tmp.start();
 	}
 	
 	public void stopDownloading(Download download) {

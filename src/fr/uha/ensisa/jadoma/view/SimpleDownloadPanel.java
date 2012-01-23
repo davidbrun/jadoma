@@ -4,15 +4,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-
-import fr.uha.ensisa.jadoma.controller.ControllerFrmMain;
-import fr.uha.ensisa.jadoma.controller.ControllerSimpleDownloadPanel;
+import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.model.Download;
 
 public class SimpleDownloadPanel extends JPanel {
@@ -22,23 +19,20 @@ public class SimpleDownloadPanel extends JPanel {
 	private JProgressBar progressBar;
 	private JButton buttonStart;
 	private JButton buttonStop;
-
-	// Controller fields
-	private ControllerSimpleDownloadPanel ctrlDownloadPanel;
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6443999510840611020L;
 	
-	public SimpleDownloadPanel(ControllerFrmMain ctrlFrmMain, Download download) {
+	public SimpleDownloadPanel(Download download) {
 		super();
 
 		// Initialization of all the SWING components of the frame
 		this.initSwingComponents();
 		
 		// Initialization of the associated controller
-		this.ctrlDownloadPanel = new ControllerSimpleDownloadPanel(ctrlFrmMain, this, download);
+		ControllerLocator.getInstance().createCtrlSimpleDownloadPanel(this, download);
 		
 		// Initialization of the values of the SWING components
 		this.initComponentValues();
@@ -76,14 +70,21 @@ public class SimpleDownloadPanel extends JPanel {
 		this.buttonStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ctrlDownloadPanel.handleButtonStartClick();
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStartClick();
+			}
+		});
+		
+		this.buttonStop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStopClick();
 			}
 		});
 	}
 	
 	private void initComponentValues() {
-		labelName.setText(ctrlDownloadPanel.getDownload().getName());
-		progressBar.setValue((int) (ctrlDownloadPanel.getDownload().getProgress() * 100));
+		labelName.setText(ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload().getName());
+		progressBar.setValue((int) (ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload().getProgress() * 100));
 	}
 	
 	public void setProgressValue(int value) {
