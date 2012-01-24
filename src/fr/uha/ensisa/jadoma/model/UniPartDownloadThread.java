@@ -81,7 +81,11 @@ public class UniPartDownloadThread extends DownloadThread {
                     downloadPart.setNbrOfCompletedBytes(downloadPart.getNbrOfCompletedBytes() + read);
                     float tmp = 1000000000 * buffer.length;
                     downloadSpeed = (float) (tmp / (1.0 + System.nanoTime() - timeInit));
+                    // TODO Update the label if the user had the time to see the speed
+                    //if ()
+                    	downloadPanel.setSpeedLabel(downloadSpeed);
                     downloadPanel.setProgressValue((int) (download.getProgress() * 100));
+                    downloadPanel.updateProgressionLabel();
                 }
                 else
                 	break;

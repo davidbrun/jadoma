@@ -93,6 +93,14 @@ public class Download {
 	public Date getEndDate() {
 		return endDate;
 	}
+	
+	public int getNbrOfCompletedBytes() {
+		int result = 0;
+		for (DownloadPart d : this.listDownloadParts)
+			result += d.getNbrOfCompletedBytes();
+		
+		return result;
+	}
 
 	@Override
 	public String toString() {
