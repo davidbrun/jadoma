@@ -1,8 +1,10 @@
 package fr.uha.ensisa.jadoma.model;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 
@@ -58,6 +60,15 @@ public class DownloadManager {
 		DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
 		if (tmp.isRunning)
 			tmp.interrupt();
+	}
+	
+	public void cancelDownloading(Download download) {
+		DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
+		if (tmp.isRunning)
+			tmp.interrupt();
+		
+		new File(download.getFileDestination()).delete();
+		download.setCurrentState(DownloadState.CANCELED);
 	}
 	
 	public void startDownloading() throws MalformedURLException {

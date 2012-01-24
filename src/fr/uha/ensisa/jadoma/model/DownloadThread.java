@@ -7,7 +7,6 @@ public abstract class DownloadThread extends Thread {
 	
 	protected SimpleDownloadPanel downloadPanel;
 	protected Download download;
-	protected float downloadSpeed;
 	protected boolean isRunning = false;
 	protected boolean isDead = false;
 	

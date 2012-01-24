@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -214,14 +215,14 @@ public class SimpleDownloadPanel extends JPanel {
 		this.buttonStartPause.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStartClick();
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStartPauseClick();
 			}
 		});
 		
 		this.buttonStop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStopClick();
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonCancelClick();
 			}
 		});
 		
@@ -247,17 +248,16 @@ public class SimpleDownloadPanel extends JPanel {
 	private void initComponentValues(Download download) {
 		updateComponentValues(download);
 		
-		// TODO: add real values
 		labelState.setText("En pause");
 		labelStatusSeparator1.setText("  -  ");
-		labelProgression.setText("X sur Y Mo");
+		String[] tmp = SizeUtil.getFormattedSize(download.getNbrOfCompletedBytes());
+		String[] tmp2 = SizeUtil.getFormattedSize(download.getSize());
+		labelProgression.setText(tmp[0] + " " + tmp[1] + " sur " + tmp2[0] + " " + tmp2[1]);
 		labelStatusSeparator2.setText("  ");
-		labelSpeed.setText("(Z Ko/s)");
-		labelEndDateDay.setText("XX/YY/ZZ");
-		labelEndDateHour.setText("XX:YY");
+		labelSpeed.setText("(0 o/s)");
 		
-		buttonStartPause.setToolTipText("Démarrer le téléchargement");
-		buttonStop.setToolTipText("Annuler le téléchargement");
+		buttonStartPause.setToolTipText("Télécharger");
+		buttonStop.setToolTipText("Annuler");
 	}
 	
 	public void updateComponentValues(Download download) {
@@ -274,6 +274,15 @@ public class SimpleDownloadPanel extends JPanel {
 	public void setSpeedLabel(float downloadSpeed) {
 		String[] tmp = SizeUtil.getFormattedSize(downloadSpeed);
 		labelSpeed.setText("(" + tmp[0] + " " + tmp[1] + "/s)");
+	}
+	
+	public void updateStateLabel() {
+		Download download = ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload();
+		Long timeBeforeEnd = (long) (download.getSize() / download.getLastKnownSpeed());
+		Date d = new Date();
+		d.setTime(new Date().getTime() + timeBeforeEnd * 1000);
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy à HH:mm:ss");
+		labelState.setText("Fin estimée : le " + dateFormat.format(d));
 	}
 	
 	public void updateProgressionLabel() {
@@ -301,11 +310,27 @@ public class SimpleDownloadPanel extends JPanel {
 		Download download = ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload();
 		
 		if (download.getCurrentState() == DownloadState.PAUSED)
+		{
 			buttonStartPause.setIcon(ResourcesUtil.START_BUTTON_IMAGE_ICON);
+			labelState.setText("En pause");
+			String[] tmp = SizeUtil.getFormattedSize(download.getNbrOfCompletedBytes());
+			String[] tmp2 = SizeUtil.getFormattedSize(download.getSize());
+			labelProgression.setText(tmp[0] + " " + tmp[1] + " sur " + tmp2[0] + " " + tmp2[1]);
+			buttonStartPause.setToolTipText("Télécharger");
+		}
 		else if (download.getCurrentState() == DownloadState.DOWNLOADING)
+		{
 			buttonStartPause.setIcon(ResourcesUtil.PAUSE_BUTTON_IMAGE_ICON);
+			buttonStartPause.setToolTipText("Suspendre");
+			labelState.setText("Fin estimée : ");
+		}
 		else if (download.getCurrentState() == DownloadState.COMPLETED)
 		{
+			String[] tmp = SizeUtil.getFormattedSize(download.getNbrOfCompletedBytes());
+			labelState.setText(tmp[0] + " " + tmp[1]);
+			labelProgression.setText(download.getHost());
+			labelSpeed.setVisible(false);
+			labelStatusSeparator2.setVisible(false);
 			buttonStartPause.setVisible(false);
 			buttonStop.setVisible(false);
 			endDatePanel.setVisible(true);
@@ -313,7 +338,16 @@ public class SimpleDownloadPanel extends JPanel {
 		}
 		else if (download.getCurrentState() == DownloadState.CANCELED)
 		{
-			
+			labelName.setForeground(Color.red);
+			labelState.setText("Téléchargement annulé");
+			labelProgression.setVisible(false);
+			labelSpeed.setVisible(false);
+			labelStatusSeparator1.setVisible(false);
+			labelStatusSeparator2.setVisible(false);
+			buttonStartPause.setVisible(false);
+			buttonStop.setVisible(false);
+			endDatePanel.setVisible(true);
+			updateLabelEndDateText(download);
 		}
 	}
 	

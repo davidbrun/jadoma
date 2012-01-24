@@ -17,17 +17,22 @@ public class Download {
 	private DownloadState currentState, previousState;
 	private int size;
 	private Date startDate, endDate;
+	private String host;
+	private float lastKnownSpeed;
 	
 	public Download(String name, String url) {
 		this.name = name;
 		this.urlFrom = url;
-		this.startDate = new Date();
+		this.startDate = new Date(Long.MIN_VALUE);
 		this.endDate = new Date(Long.MAX_VALUE);
 		this.listDownloadParts = new ArrayList<DownloadPart>();
+		this.host = "";
+		this.currentState = DownloadState.PAUSED;
 		
 		try {
 		   HttpURLConnection.setFollowRedirects(true);
 		   HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+		   this.host = con.getURL().getHost();
 		   con.setRequestMethod("HEAD");
 		   
 		   con.setConnectTimeout(10000); //set timeout to 10 seconds
@@ -94,6 +99,10 @@ public class Download {
 		return endDate;
 	}
 	
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	
 	public int getNbrOfCompletedBytes() {
 		int result = 0;
 		for (DownloadPart d : this.listDownloadParts)
@@ -112,6 +121,18 @@ public class Download {
 	
 	public void setFileDestination(String fileDestination) {
 		this.fileDestination = fileDestination;
+	}
+	
+	public String getHost() {
+		return host;
+	}
+	
+	public float getLastKnownSpeed() {
+		return lastKnownSpeed;
+	}
+	
+	public void setLastKnownSpeed(float lastKnownSpeed) {
+		this.lastKnownSpeed = lastKnownSpeed;
 	}
 	
 	@Override

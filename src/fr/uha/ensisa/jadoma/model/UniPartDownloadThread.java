@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
+import java.util.Date;
+
 import fr.uha.ensisa.jadoma.util.HttpConnection;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
@@ -39,6 +41,9 @@ public class UniPartDownloadThread extends DownloadThread {
 			try {
 				this.isRunning = true;
 				download.setCurrentState(DownloadState.DOWNLOADING);
+				if (!(download.getStartDate().after(new Date(Long.MIN_VALUE))))
+					download.setStartDate(new Date());
+				downloadPanel.updateComponentValues(download);
 				
 				ActiveDownloadPart downloadPart = (ActiveDownloadPart) this.download.getListDownloadParts().get(0);
 				this.httpConnection.setRange(downloadPart.getNbrOfCompletedBytes(), downloadPart.getEndByte());
@@ -66,6 +71,7 @@ public class UniPartDownloadThread extends DownloadThread {
 	                this.interrupt();
 	            }
 	            
+	            float downloadSpeed = 0;
 	            // Read the following and write it in the destination file
 	            while (downloadPart.getNbrOfCompletedBytes() < downloadPart.getEndByte()) {
 	                // Adapt the size of the buffer to avoid problems
@@ -85,12 +91,13 @@ public class UniPartDownloadThread extends DownloadThread {
 	                    downloadPart.setNbrOfCompletedBytes(downloadPart.getNbrOfCompletedBytes() + read);
 	                    float tmp = 1000000000 * buffer.length;
 	                    downloadSpeed = (float) (tmp / (1.0 + System.nanoTime() - timeInit));
+	                    download.setLastKnownSpeed(downloadSpeed);
 	                    // TODO Update the label if the user had the time to see the speed
 	                    //if ()
 	                    	downloadPanel.setSpeedLabel(downloadSpeed);
 	                    downloadPanel.setProgressValue((int) (download.getProgress() * 100));
 	                    downloadPanel.updateProgressionLabel();
-	                    downloadPanel.updateComponentValues(download);
+	                    downloadPanel.updateStateLabel();
 	                }
 	                else
 	                	break;
@@ -118,7 +125,7 @@ public class UniPartDownloadThread extends DownloadThread {
 				this.fileDestination.close();
 				this.isRunning = false;
 				this.isDead = true;
-				download.setCurrentState(DownloadState.CANCELED);
+				download.setCurrentState(DownloadState.PAUSED);
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}

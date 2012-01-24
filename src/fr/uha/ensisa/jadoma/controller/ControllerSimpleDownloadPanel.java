@@ -29,16 +29,19 @@ public class ControllerSimpleDownloadPanel {
 		return downloadPanel;
 	}
 	
-	public void handleButtonStartClick() {
+	public void handleButtonStartPauseClick() {
 		try {
-			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().startDownloading(download);
+			if (download.getCurrentState() == DownloadState.PAUSED)
+				ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().startDownloading(download);
+			else if (download.getCurrentState() == DownloadState.DOWNLOADING)
+				ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().stopDownloading(download);
 		} catch (MalformedURLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	public void handleButtonStopClick() {
-		ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().stopDownloading(download);
+	public void handleButtonCancelClick() {
+		ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().cancelDownloading(download);
 	}
 	
 	public void handleLabelDestinationClick() {
