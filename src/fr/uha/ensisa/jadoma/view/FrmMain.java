@@ -36,8 +36,8 @@ public class FrmMain extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 6344324745845910099L;
-	private int last_width = 500;
-	private int last_height = 400;
+	private static final int WINDOW_WIDTH = 600;
+	private static final int WINDOW_HEIGHT = 400;
 
 	public FrmMain() {
 		super();
@@ -79,7 +79,8 @@ public class FrmMain extends JFrame {
 		this.buttonDisplayNics.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.scrollDownloads.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		this.setPreferredSize(new Dimension(this.last_width, this.last_height));
+		this.setPreferredSize(new Dimension(FrmMain.WINDOW_WIDTH, FrmMain.WINDOW_HEIGHT));
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		contentPane.add(this.textFieldDownloadURL);
@@ -140,5 +141,9 @@ public class FrmMain extends JFrame {
 
 	public void clearURLField() {
 		this.textFieldDownloadURL.setText("");
+	}
+	
+	public JPanel getScrollPanel() {
+		return scrollPanel;
 	}
 }

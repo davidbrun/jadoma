@@ -105,6 +105,9 @@ public class Download {
 	public void setCurrentState(DownloadState currentState) {
 		this.previousState = this.currentState;
 		this.currentState = currentState;
+		
+		if (currentState == DownloadState.COMPLETED)
+			this.endDate = new Date();
 	}
 	
 	public void setFileDestination(String fileDestination) {
