@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.SocketException;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -145,10 +144,6 @@ public class FrmMain extends JFrame {
 	public void addDownloadPanel(SimpleDownloadPanel panel) {
 		panel.setAlignmentX(CENTER_ALIGNMENT);
 		panel.setAlignmentY(BOTTOM_ALIGNMENT);
-		
-		if (this.scrollPanel.getComponents().length != 0)
-			this.scrollPanel.add(Box.createVerticalStrut(3));
-		
 		this.scrollPanel.add(panel);
 	}
 

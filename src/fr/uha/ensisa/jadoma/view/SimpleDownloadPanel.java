@@ -56,7 +56,7 @@ public class SimpleDownloadPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -6443999510840611020L;
 	
-	private static final int FOLD_HEIGHT = 67;
+	private static final int FOLD_HEIGHT = 70;
 	private static final int EXTENDED_HEIGHT = 103;
 	private static final int RIGHT_PANEL_WIDTH = 80;
 	private static final int SPACE_BETWEEN_MAIN_PANELS = 5;
@@ -170,6 +170,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.statusPanel.add(labelStatusSeparator2);
 		this.statusPanel.add(labelSpeed);
 		
+		this.leftPanel.add(Box.createVerticalStrut(1));
 		this.leftPanel.add(Box.createVerticalGlue());
 		this.leftPanel.add(labelName);
 		this.leftPanel.add(Box.createVerticalStrut(3));
@@ -182,6 +183,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.leftPanel.add(Box.createVerticalGlue());
 		this.leftPanel.add(statusPanel);
 		this.leftPanel.add(Box.createVerticalGlue());
+		this.leftPanel.add(Box.createVerticalStrut(2));
 		this.rightSubPanel.add(buttonStartPause);
 		this.rightSubPanel.add(buttonStop);
 		this.endDatePanel.add(labelEndDateDay);
