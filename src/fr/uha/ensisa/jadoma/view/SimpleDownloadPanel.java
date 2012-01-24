@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.model.Download;
+import fr.uha.ensisa.jadoma.util.ResourcesUtil;
 import fr.uha.ensisa.jadoma.util.SizeUtil;
 
 public class SimpleDownloadPanel extends JPanel {
@@ -84,8 +85,10 @@ public class SimpleDownloadPanel extends JPanel {
 		labelStatusSeparator2 = new JLabel();
 		labelSpeed = new JLabel();
 		labelEndDate = new JLabel();
-		buttonStartPause = new JButton("Start");
-		buttonStop = new JButton("Stop");
+//		buttonStartPause = new JButton("Start");
+//		buttonStop = new JButton("Stop");
+		buttonStartPause = new JButton(ResourcesUtil.START_BUTTON_IMAGE_ICON);
+		buttonStop = new JButton(ResourcesUtil.STOP_BUTTON_IMAGE_ICON);
 		
 		// Place the components
 		leftPanel.setAlignmentX(LEFT_ALIGNMENT);
