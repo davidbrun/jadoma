@@ -1,8 +1,10 @@
 package fr.uha.ensisa.jadoma.view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -46,6 +48,7 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	// Fields
 	private boolean isExtended;
+	private boolean isSelected;
 	
 	/**
 	 * 
@@ -56,6 +59,9 @@ public class SimpleDownloadPanel extends JPanel {
 	private static final int EXTENDED_HEIGHT = 103;
 	private static final int RIGHT_PANEL_WIDTH = 80;
 	private static final int SPACE_BETWEEN_MAIN_PANELS = 5;
+	private static final Color DOWNLOAD_ODD_BACKGROUND_COLOR = new Color(237, 241, 244);
+	private static final Color DOWNLOAD_EVEN_BACKGROUND_COLOR = new Color(255, 255, 255);
+	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.controlHighlight;
 	
 	public SimpleDownloadPanel(Download download) {
 		super();
@@ -193,11 +199,14 @@ public class SimpleDownloadPanel extends JPanel {
 		this.endDatePanel.setVisible(false);
 		this.isExtended = true;
 		this.tooglePanelState();
+		this.isSelected = false;
 		
 		// Add the listeners
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).deselectAllDownloadPanel();
+				SimpleDownloadPanel.this.isSelected = true;
 				tooglePanelState();
 			}
 		});
@@ -277,6 +286,7 @@ public class SimpleDownloadPanel extends JPanel {
 	}
 	
 	public void tooglePanelState() {
+		updateBackgroundColor();
 		this.isExtended = !this.isExtended;
 		
 		this.detailsPanel.setVisible(isExtended);
@@ -307,6 +317,35 @@ public class SimpleDownloadPanel extends JPanel {
 		}
 	}
 	
+	public boolean isSelected() {
+		return isSelected;
+	}
+	
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+		
+		updateBackgroundColor();
+	}
+	
+	public void updateBackgroundColor() {
+		if (this.isSelected)
+		{
+			if (this.getBackground() != DOWNLOAD_SELECTED_BACKGROUND_COLOR)
+				this.setBackground(DOWNLOAD_SELECTED_BACKGROUND_COLOR);
+		}
+		else
+			if (ControllerLocator.getInstance().getPositionOfSimpleDownloadPanel(this) % 2 != 0)
+			{
+				if (this.getBackground() != DOWNLOAD_EVEN_BACKGROUND_COLOR)
+					this.setBackground(DOWNLOAD_EVEN_BACKGROUND_COLOR);
+			}
+			else
+			{
+				if (this.getBackground() != DOWNLOAD_ODD_BACKGROUND_COLOR)
+					this.setBackground(DOWNLOAD_ODD_BACKGROUND_COLOR);
+			}
+	}
+
 	private void updateLabelEndDateText(Download download) {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
 		labelEndDateDay.setText(dateFormat.format(download.getEndDate()));
@@ -319,5 +358,21 @@ public class SimpleDownloadPanel extends JPanel {
 		component.setMaximumSize(size);
 		component.setPreferredSize(size);
 		component.setSize(size);
+	}
+	
+	@Override
+	public void setBackground(Color background) {
+		super.setBackground(background);
+		
+		for (Component c : this.getComponents())
+			setBackground(c, background);
+	}
+	
+	private void setBackground(Component component, Color background) {
+		if (component instanceof JPanel)
+			for (Component child : ((JPanel)component).getComponents())
+				setBackground(child, background);
+		
+		component.setBackground(background);
 	}
 }

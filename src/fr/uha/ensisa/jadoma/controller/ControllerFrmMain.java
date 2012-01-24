@@ -35,6 +35,7 @@ public class ControllerFrmMain {
 		try {
 			this.downloadManager.addDownload(dl);
 			this.frmMain.addDownloadPanel(downloadPanel);
+			downloadPanel.updateBackgroundColor();
 			this.frmMain.clearURLField();
 		} catch (MalformedURLException e) {
 			System.out.println(e.getMessage());

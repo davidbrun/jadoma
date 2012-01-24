@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.util.NicUtil;
 
@@ -67,12 +66,11 @@ public class FrmMain extends JFrame {
 		this.buttonDisplayNics = new JButton("Nics");
 		this.textFieldDownloadURL = new JTextField("http://test-debit.free.fr/image.iso");
 		this.scrollPanel = new JPanel();
-		this.scrollPanel.setBackground(Color.black);
+		this.scrollPanel.setBackground(Color.white);
 		this.scrollPanel.setLayout(new BoxLayout(this.scrollPanel, BoxLayout.Y_AXIS));
 		this.scrollDownloads = new JScrollPane();
 		this.scrollDownloads.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scrollDownloads.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		this.scrollDownloads.setViewportBorder(new LineBorder(Color.red));
 		this.scrollDownloads.setViewportView(this.scrollPanel);
 		
 		// Add SWING components
@@ -142,7 +140,6 @@ public class FrmMain extends JFrame {
 			this.scrollPanel.add(Box.createVerticalStrut(3));
 		
 		this.scrollPanel.add(panel);
-		panel.setBackground(Color.yellow);
 	}
 
 	public void clearURLField() {

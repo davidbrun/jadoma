@@ -13,7 +13,7 @@ public class ControllerLocator {
     private ControllerFrmMain ctrlFrmMainInstance;
     private List<ControllerSimpleDownloadPanel> listCtrlSimpleDownloadPanels;
     
-    // Just to synchronize
+	// Just to synchronize
     private static Object synchronousObject = new Object();
     
     // Private constructor
@@ -63,6 +63,23 @@ public class ControllerLocator {
 			if (ctrl.getSimpleDownloadPanel().equals(simpleDownloadPanel))
 			{
 				result = ctrl;
+				break;
+			}
+		
+		return result;
+	}
+	
+	public List<ControllerSimpleDownloadPanel> getListCtrlSimpleDownloadPanels() {
+		return listCtrlSimpleDownloadPanels;
+	}
+
+	public int getPositionOfSimpleDownloadPanel(SimpleDownloadPanel simpleDownloadPanel) {
+		int result = -1;
+		
+		for (int i = 0; i < listCtrlSimpleDownloadPanels.size(); i++)
+			if (listCtrlSimpleDownloadPanels.get(i).getSimpleDownloadPanel().equals(simpleDownloadPanel))
+			{
+				result = i;
 				break;
 			}
 		
