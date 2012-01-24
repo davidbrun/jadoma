@@ -49,11 +49,14 @@ public class DownloadManager {
 					download);
 			this.listDownloadThreads.add(downloadIndex, (DownloadThread) tmp);
 		}
-		tmp.start();
+		if (!tmp.isRunning)
+			tmp.start();
 	}
 	
 	public void stopDownloading(Download download) {
-		this.listDownloadThreads.get(this.listDownloads.indexOf(download)).interrupt();
+		DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
+		if (tmp.isRunning)
+			tmp.interrupt();
 	}
 	
 	public void startDownloading() throws MalformedURLException {
