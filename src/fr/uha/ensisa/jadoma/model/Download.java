@@ -101,7 +101,16 @@ public class Download {
 		
 		return result;
 	}
-
+	
+	public void setCurrentState(DownloadState currentState) {
+		this.previousState = this.currentState;
+		this.currentState = currentState;
+	}
+	
+	public void setFileDestination(String fileDestination) {
+		this.fileDestination = fileDestination;
+	}
+	
 	@Override
 	public String toString() {
 		return this.urlFrom;

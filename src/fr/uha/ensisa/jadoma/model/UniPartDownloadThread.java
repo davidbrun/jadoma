@@ -25,7 +25,8 @@ public class UniPartDownloadThread extends DownloadThread {
 		
 		// Create the output file
 		try {
-			this.fileDestination = new RandomAccessFile(DESTINATION_DIRECTORY + this.download.getName(), "rw");
+			download.setFileDestination(DESTINATION_DIRECTORY + this.download.getName());
+			this.fileDestination = new RandomAccessFile(download.getFileDestination(), "rw");
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -37,6 +38,7 @@ public class UniPartDownloadThread extends DownloadThread {
 		{
 			try {
 				this.isRunning = true;
+				download.setCurrentState(DownloadState.DOWNLOADING);
 				
 				ActiveDownloadPart downloadPart = (ActiveDownloadPart) this.download.getListDownloadParts().get(0);
 				this.httpConnection.setRange(downloadPart.getNbrOfCompletedBytes(), downloadPart.getEndByte());
@@ -88,6 +90,7 @@ public class UniPartDownloadThread extends DownloadThread {
 	                    	downloadPanel.setSpeedLabel(downloadSpeed);
 	                    downloadPanel.setProgressValue((int) (download.getProgress() * 100));
 	                    downloadPanel.updateProgressionLabel();
+	                    downloadPanel.updateComponentValues(download);
 	                }
 	                else
 	                	break;
@@ -97,6 +100,7 @@ public class UniPartDownloadThread extends DownloadThread {
 	            this.fileDestination.close();
 	            this.isRunning = false;
 	            this.isDead = true;
+	            download.setCurrentState(DownloadState.COMPLETED);
 	        } catch (Exception ex) {
 	            this.isRunning = false;
 	            this.isDead = true;
@@ -114,6 +118,7 @@ public class UniPartDownloadThread extends DownloadThread {
 				this.fileDestination.close();
 				this.isRunning = false;
 				this.isDead = true;
+				download.setCurrentState(DownloadState.CANCELED);
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}

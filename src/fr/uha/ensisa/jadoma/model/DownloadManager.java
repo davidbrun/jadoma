@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
+import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 
 public class DownloadManager {
 	
@@ -44,7 +45,7 @@ public class DownloadManager {
 		{
 			this.listDownloadThreads.remove(tmp);
 			tmp = null;
-			tmp = new UniPartDownloadThread(
+			tmp = DownloadFactory.createDownloadThread(
 					ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(download).getSimpleDownloadPanel(),
 					download);
 			this.listDownloadThreads.add(downloadIndex, (DownloadThread) tmp);

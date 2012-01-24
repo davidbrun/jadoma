@@ -2,6 +2,7 @@ package fr.uha.ensisa.jadoma.controller;
 
 import java.net.MalformedURLException;
 
+import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadManager;
 import fr.uha.ensisa.jadoma.util.UrlUtil;
@@ -28,7 +29,7 @@ public class ControllerFrmMain {
 		if(url.length() == 0)
 			return;
 		
-		Download dl = new Download(UrlUtil.getFileNameFromUrl(url), url);
+		Download dl = DownloadFactory.createDownload(UrlUtil.getFileNameFromUrl(url), url);
 		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
 		
 		try {

@@ -4,14 +4,19 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.model.Download;
+import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.util.ResourcesUtil;
 import fr.uha.ensisa.jadoma.util.SizeUtil;
 
@@ -46,6 +51,7 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	private static final int FOLD_HEIGHT = 67;
 	private static final int EXTENDED_HEIGHT = 103;
+	private static final int RIGHT_PANEL_WIDTH = 80;
 	
 	public SimpleDownloadPanel(Download download) {
 		super();
@@ -57,7 +63,7 @@ public class SimpleDownloadPanel extends JPanel {
 		ControllerLocator.getInstance().createCtrlSimpleDownloadPanel(this, download);
 		
 		// Initialization of the values of the SWING components
-		this.initComponentValues();
+		this.initComponentValues(download);
 	}
 
 	private void initSwingComponents() {
@@ -85,8 +91,6 @@ public class SimpleDownloadPanel extends JPanel {
 		labelStatusSeparator2 = new JLabel();
 		labelSpeed = new JLabel();
 		labelEndDate = new JLabel();
-//		buttonStartPause = new JButton("Start");
-//		buttonStop = new JButton("Stop");
 		buttonStartPause = new JButton(ResourcesUtil.START_BUTTON_IMAGE_ICON);
 		buttonStop = new JButton(ResourcesUtil.STOP_BUTTON_IMAGE_ICON);
 		
@@ -96,8 +100,7 @@ public class SimpleDownloadPanel extends JPanel {
 		
 		rightPanel.setAlignmentX(RIGHT_ALIGNMENT);
 		rightPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		rightPanel.setMinimumSize(new Dimension(40, 0));
-		rightSubPanel.setAlignmentX(RIGHT_ALIGNMENT);
+		rightSubPanel.setAlignmentX(CENTER_ALIGNMENT);
 		rightSubPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		statusPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -170,7 +173,9 @@ public class SimpleDownloadPanel extends JPanel {
 		this.add(Box.createHorizontalStrut(5));
 		this.add(leftPanel);
 		this.add(Box.createHorizontalStrut(5));
+//		this.add(Box.createHorizontalGlue());
 		this.add(rightPanel);
+		this.add(Box.createHorizontalStrut(0));
 		
 		// Initialize the state of the components
 		this.labelEndDate.setVisible(false);
@@ -200,12 +205,8 @@ public class SimpleDownloadPanel extends JPanel {
 		});
 	}
 	
-	private void initComponentValues() {
-		Download download = ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload();
-		labelName.setText(download.getName());
-		progressBar.setValue((int) (download.getProgress() * 100));
-		labelDestination.setText(download.getFileDestination());
-		labelURL.setText(download.getUrlFrom());
+	private void initComponentValues(Download download) {
+		updateComponentValues(download);
 		
 		// TODO: add real values
 		labelState.setText("En pause");
@@ -215,8 +216,15 @@ public class SimpleDownloadPanel extends JPanel {
 		labelSpeed.setText("(Z Ko/s)");
 		labelEndDate.setText("date");
 		
-		buttonStartPause.setToolTipText("Démarrer");
+		buttonStartPause.setToolTipText("Démarrer le téléchargement");
 		buttonStop.setToolTipText("Annuler le téléchargement");
+	}
+	
+	public void updateComponentValues(Download download) {
+		labelName.setText(download.getName());
+		progressBar.setValue((int) (download.getProgress() * 100));
+		labelDestination.setText(download.getFileDestination());
+		labelURL.setText(download.getUrlFrom());
 	}
 	
 	public void setProgressValue(int value) {
@@ -242,5 +250,38 @@ public class SimpleDownloadPanel extends JPanel {
 		
 		this.detailsPanel.setVisible(isExtended);
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, (isExtended ? EXTENDED_HEIGHT : FOLD_HEIGHT)));
+		setComponentSize(rightPanel, new Dimension(RIGHT_PANEL_WIDTH, (isExtended ? EXTENDED_HEIGHT : FOLD_HEIGHT)));
+	}
+	
+	public void toogleDownloadState() {
+		Download download = ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload();
+		
+		if (download.getCurrentState().equals(DownloadState.PAUSED))
+			buttonStartPause.setIcon(ResourcesUtil.START_BUTTON_IMAGE_ICON);
+		else if (download.getCurrentState().equals(DownloadState.DOWNLOADING))
+			buttonStartPause.setIcon(ResourcesUtil.PAUSE_BUTTON_IMAGE_ICON);
+		else if (download.getCurrentState().equals(DownloadState.COMPLETED))
+		{
+			buttonStartPause.setVisible(false);
+			buttonStop.setVisible(false);
+			labelEndDate.setVisible(true);
+			updateLabelEndDateText(download);
+		}
+		else if (download.getCurrentState().equals(DownloadState.CANCELED))
+		{
+			
+		}
+	}
+	
+	private void updateLabelEndDateText(Download download) {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy\nhh:ii");
+		labelEndDate.setText(dateFormat.format(download.getEndDate()));
+	}
+	
+	private static void setComponentSize(Component component, Dimension size) {
+		component.setMinimumSize(size);
+		component.setMaximumSize(size);
+		component.setPreferredSize(size);
+		component.setSize(size);
 	}
 }
