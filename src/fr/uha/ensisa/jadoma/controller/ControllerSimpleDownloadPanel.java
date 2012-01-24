@@ -4,8 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import fr.uha.ensisa.jadoma.model.Download;
+import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerSimpleDownloadPanel {
@@ -46,7 +46,8 @@ public class ControllerSimpleDownloadPanel {
 	}
 	
 	public void handleLabelNameClick() {
-		this.openFile();
+		if (download.getCurrentState() == DownloadState.COMPLETED)
+			this.openFile();
 	}
 	
 	private void openFile() {
