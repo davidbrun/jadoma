@@ -72,10 +72,11 @@ public class UniPartDownloadThread extends DownloadThread {
 	            }
 	            
 	            float downloadSpeed = 0;
+	            int i = 1;
+	            long timeInit = System.nanoTime();
 	            // Read the following and write it in the destination file
 	            while (downloadPart.getNbrOfCompletedBytes() < downloadPart.getEndByte()) {
 	                // Adapt the size of the buffer to avoid problems
-	                long timeInit = System.nanoTime();
 	                byte buffer[];
 	                if (downloadPart.getEndByte() - downloadPart.getNbrOfCompletedBytes() > MAX_BUFFER_SIZE)
 	                    buffer = new byte[MAX_BUFFER_SIZE];
@@ -89,20 +90,33 @@ public class UniPartDownloadThread extends DownloadThread {
 	                	// Write the buffer into the file
 	                    fileDestination.write(buffer, 0, read);
 	                    downloadPart.setNbrOfCompletedBytes(downloadPart.getNbrOfCompletedBytes() + read);
-	                    float tmp = 1000000000 * buffer.length;
-	                    downloadSpeed = (float) (tmp / (1.0 + System.nanoTime() - timeInit));
-	                    download.setLastKnownSpeed(downloadSpeed);
-	                    // TODO Update the label if the user had the time to see the speed
-	                    //if ()
+	                    
+	                    if (System.nanoTime() - timeInit > 400000000l)
+	                    {
+	                    	float tmp = 1000000000l * buffer.length * i;
+	                        downloadSpeed = (float) (tmp / (1.0 + System.nanoTime() - timeInit));
+	                        download.setLastKnownSpeed(downloadSpeed);
 	                    	downloadPanel.setSpeedLabel(downloadSpeed);
-	                    downloadPanel.setProgressValue((int) (download.getProgress() * 100));
-	                    downloadPanel.updateProgressionLabel();
-	                    downloadPanel.updateStateLabel();
+	                        downloadPanel.setProgressValue((int) (download.getProgress() * 100));
+	                        downloadPanel.updateProgressionLabel();
+	                        downloadPanel.updateStateLabel();
+	                        // Init
+	                        timeInit = System.nanoTime();
+		                    i = 0;
+	                    }
+	                    i++;
 	                }
 	                else
 	                	break;
 	            }
 	            
+	            // Last update of the view
+	            download.setLastKnownSpeed(0);
+            	downloadPanel.setSpeedLabel(0);
+                downloadPanel.setProgressValue((int) (download.getProgress() * 100));
+                downloadPanel.updateProgressionLabel();
+                downloadPanel.updateStateLabel();
+                // End the download
 	            in.close();
 	            this.fileDestination.close();
 	            this.isRunning = false;
