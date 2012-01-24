@@ -218,6 +218,7 @@ public class SimpleDownloadPanel extends JPanel {
 		
 		// Add actions on particular labels
 		this.labelName.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.labelName.setToolTipText("Ouvrir le fichier");
 		this.labelName.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -225,6 +226,7 @@ public class SimpleDownloadPanel extends JPanel {
 			}
 		});
 		this.labelDestination.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.labelDestination.setToolTipText("Ouvrir l'emplacement du fichier");
 		this.labelDestination.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

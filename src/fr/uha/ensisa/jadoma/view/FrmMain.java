@@ -41,13 +41,19 @@ public class FrmMain extends JFrame {
 
 	public FrmMain() {
 		super();
-
+		
+		//Displays the menu bar on the top of the screen (mac style)
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+		
 		// Initialization of all the SWING components of the frame
 		this.initSwingComponents();
-
+		
 		// Initialization of the associated controller
 		ControllerLocator.getInstance().createCtrlFrmMain(this);
-
+		
+		// Center the window on the screen
+        this.setLocationRelativeTo(null);
+		
 		// Ask the layout manager to do its work
 		this.pack();
 	}
