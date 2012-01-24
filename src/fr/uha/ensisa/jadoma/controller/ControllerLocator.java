@@ -69,10 +69,6 @@ public class ControllerLocator {
 		return result;
 	}
 	
-	public List<ControllerSimpleDownloadPanel> getListCtrlSimpleDownloadPanels() {
-		return listCtrlSimpleDownloadPanels;
-	}
-
 	public int getPositionOfSimpleDownloadPanel(SimpleDownloadPanel simpleDownloadPanel) {
 		int result = -1;
 		
@@ -84,5 +80,47 @@ public class ControllerLocator {
 			}
 		
 		return result;
+	}
+	
+	public int getPositionOfSelectedSimpleDownloadPanel() {
+		int result = -1;
+		
+		for (int i = 0; i < listCtrlSimpleDownloadPanels.size(); i++)
+			if (listCtrlSimpleDownloadPanels.get(i).getSimpleDownloadPanel().isSelected())
+			{
+				result = i;
+				break;
+			}
+		
+		return result;
+	}
+	
+	public void deselectAllDownloadPanel() {
+		for (ControllerSimpleDownloadPanel c : listCtrlSimpleDownloadPanels)
+			c.getSimpleDownloadPanel().setSelected(false);
+	}
+	
+	public void selectNextSimpleDownloadPanel(int currentDownloadPanelPosition) {
+		if (currentDownloadPanelPosition < listCtrlSimpleDownloadPanels.size() - 1)
+			if (currentDownloadPanelPosition == -1)
+				listCtrlSimpleDownloadPanels.get(0).getSimpleDownloadPanel().setSelected(true);
+			else 
+				listCtrlSimpleDownloadPanels.get(currentDownloadPanelPosition + 1).getSimpleDownloadPanel().setSelected(true);
+		else
+			listCtrlSimpleDownloadPanels.get(currentDownloadPanelPosition).getSimpleDownloadPanel().setSelected(true);
+	}
+	
+	public void selectPreviousSimpleDownloadPanel(int currentDownloadPanelPosition) {
+		if (currentDownloadPanelPosition > 0)
+			if (currentDownloadPanelPosition == -1)
+				listCtrlSimpleDownloadPanels.get(0).getSimpleDownloadPanel().setSelected(true);
+			else 
+				listCtrlSimpleDownloadPanels.get(currentDownloadPanelPosition - 1).getSimpleDownloadPanel().setSelected(true);
+		else
+			listCtrlSimpleDownloadPanels.get(currentDownloadPanelPosition).getSimpleDownloadPanel().setSelected(true);
+	}
+	
+	public int getNbrOfDownloadPanels() {
+		return listCtrlSimpleDownloadPanels.size();
 	}
 }

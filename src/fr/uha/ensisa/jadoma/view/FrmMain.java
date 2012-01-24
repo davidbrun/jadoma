@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
@@ -113,10 +114,9 @@ public class FrmMain extends JFrame {
 		
 		this.textFieldDownloadURL.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent arg0) {
-				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {	
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 					ControllerLocator.getInstance().getCtrlFrmMain().handleButtonActClick();
-				}
 			}
 		});
 		
@@ -124,6 +124,16 @@ public class FrmMain extends JFrame {
 			@Override
 			public void componentResized(ComponentEvent arg0) {
 				setPreferredSize(getSize());
+			}
+		});
+		
+		this.scrollPanel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP)
+					ControllerLocator.getInstance().getCtrlFrmMain().handleKeyUpPressedOnScrollPanel();
+				else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+					ControllerLocator.getInstance().getCtrlFrmMain().handleKeyDownPressedOnScrollPanel();
 			}
 		});
 	}
@@ -148,5 +158,9 @@ public class FrmMain extends JFrame {
 	
 	public JPanel getScrollPanel() {
 		return scrollPanel;
+	}
+
+	public JScrollBar getVerticalScrollBar() {
+		return this.scrollDownloads.getVerticalScrollBar();
 	}
 }

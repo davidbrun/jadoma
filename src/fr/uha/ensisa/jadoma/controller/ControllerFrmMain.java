@@ -44,6 +44,20 @@ public class ControllerFrmMain {
 		this.updateLabelCaption();
 	}
 	
+	public void handleKeyUpPressedOnScrollPanel() {
+		int currentPosition = ControllerLocator.getInstance().getPositionOfSelectedSimpleDownloadPanel();
+		ControllerLocator.getInstance().deselectAllDownloadPanel();
+		ControllerLocator.getInstance().selectPreviousSimpleDownloadPanel(currentPosition);
+		frmMain.getVerticalScrollBar().setValue(ControllerLocator.getInstance().getPositionOfSelectedSimpleDownloadPanel() * frmMain.getVerticalScrollBar().getMaximum() / ControllerLocator.getInstance().getNbrOfDownloadPanels());
+	}
+	
+	public void handleKeyDownPressedOnScrollPanel() {
+		int currentPosition = ControllerLocator.getInstance().getPositionOfSelectedSimpleDownloadPanel();
+		ControllerLocator.getInstance().deselectAllDownloadPanel();
+		ControllerLocator.getInstance().selectNextSimpleDownloadPanel(currentPosition);
+		frmMain.getVerticalScrollBar().setValue(ControllerLocator.getInstance().getPositionOfSelectedSimpleDownloadPanel() * frmMain.getVerticalScrollBar().getMaximum() / ControllerLocator.getInstance().getNbrOfDownloadPanels());
+	}
+	
 	public DownloadManager getDownloadManager() {
 		return downloadManager;
 	}

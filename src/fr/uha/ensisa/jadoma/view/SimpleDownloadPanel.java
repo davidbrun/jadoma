@@ -205,7 +205,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).deselectAllDownloadPanel();
+				ControllerLocator.getInstance().deselectAllDownloadPanel();
 				SimpleDownloadPanel.this.isSelected = true;
 				tooglePanelState();
 			}
@@ -323,6 +323,7 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
+		ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain().getScrollPanel().requestFocus();
 		
 		updateBackgroundColor();
 	}

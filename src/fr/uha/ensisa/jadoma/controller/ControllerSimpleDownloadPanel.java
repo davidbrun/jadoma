@@ -71,9 +71,4 @@ public class ControllerSimpleDownloadPanel {
 			}
 		}
 	}
-	
-	public void deselectAllDownloadPanel() {
-		for (ControllerSimpleDownloadPanel c : ControllerLocator.getInstance().getListCtrlSimpleDownloadPanels())
-			c.getSimpleDownloadPanel().setSelected(false);
-	}
 }
