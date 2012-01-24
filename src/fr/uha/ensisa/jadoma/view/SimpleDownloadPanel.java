@@ -1,6 +1,7 @@
 package fr.uha.ensisa.jadoma.view;
 
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -212,6 +213,22 @@ public class SimpleDownloadPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleButtonStopClick();
+			}
+		});
+		
+		// Add actions on particular labels
+		this.labelName.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.labelName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleLabelNameClick();
+			}
+		});
+		this.labelDestination.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.labelDestination.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(SimpleDownloadPanel.this).handleLabelDestinationClick();
 			}
 		});
 	}
