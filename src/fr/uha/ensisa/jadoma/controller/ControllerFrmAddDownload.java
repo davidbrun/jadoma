@@ -33,6 +33,35 @@ public class ControllerFrmAddDownload {
 			JOptionPane.showMessageDialog(frmAddDownload, "Impossible d'écrire à l'emplacement spécifié !",
 					"Erreur", JOptionPane.WARNING_MESSAGE);
 		
+		this.addDownload(url);
+		
+		frmAddDownload.setVisible(false);
+	}
+
+	public void handleButtonCancelClick() {
+		frmAddDownload.setVisible(false);
+	}
+	
+	public void handleButtonBrowseClick() {
+		 JFileChooser fileChooser = new JFileChooser();
+		 fileChooser.setCurrentDirectory(new java.io.File(ControllerLocator.getInstance().getUserPreferences().getDestinationFolder()));
+		 fileChooser.setDialogTitle("Rechercher un dossier");
+		 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		 fileChooser.setAcceptAllFileFilterUsed(false);
+		 if (fileChooser.showOpenDialog(frmAddDownload) == JFileChooser.APPROVE_OPTION) { 
+			try {
+				frmAddDownload.setDestinationFileText(fileChooser.getSelectedFile().getCanonicalPath());
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		 }
+	}
+	
+	public void handleButtonDownloadAllClick() {
+		String url = frmAddDownload.getTextFieldDownloadURL();
+	}
+	
+	private void addDownload(String url) {
 		Download dl = DownloadFactory.createDownload(UrlUtil.getFileNameFromUrl(url), url);
 		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
 		dl.setFileDestination(frmAddDownload.getDestinationFileText() +
@@ -69,30 +98,5 @@ public class ControllerFrmAddDownload {
 			} catch (MalformedURLException e) {
 				System.out.println(e.getMessage());
 			}
-		
-		frmAddDownload.setVisible(false);
-	}
-
-	public void handleButtonCancelClick() {
-		frmAddDownload.setVisible(false);
-	}
-	
-	public void handleButtonBrowseClick() {
-		 JFileChooser fileChooser = new JFileChooser();
-		 fileChooser.setCurrentDirectory(new java.io.File(ControllerLocator.getInstance().getUserPreferences().getDestinationFolder()));
-		 fileChooser.setDialogTitle("Rechercher un dossier");
-		 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		 fileChooser.setAcceptAllFileFilterUsed(false);
-		 if (fileChooser.showOpenDialog(frmAddDownload) == JFileChooser.APPROVE_OPTION) { 
-			try {
-				frmAddDownload.setDestinationFileText(fileChooser.getSelectedFile().getCanonicalPath());
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		 }
-	}
-
-	public void handleButtonDownloadAllClick() {
-		//TODO: regex
 	}
 }
