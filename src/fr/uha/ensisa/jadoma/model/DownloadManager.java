@@ -3,8 +3,8 @@ package fr.uha.ensisa.jadoma.model;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 
@@ -68,6 +68,7 @@ public class DownloadManager {
 			tmp.interrupt();
 		
 		new File(download.getFileDestination()).delete();
+		download.setEndDate(new Date());
 		download.setCurrentState(DownloadState.CANCELED);
 	}
 	

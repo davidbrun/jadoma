@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,13 +27,13 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	// Constants
 	private static final long serialVersionUID = -6443999510840611020L;
-	private static final int FOLD_HEIGHT = 70;
+	private static final int FOLD_HEIGHT = 73;
 	private static final int EXTENDED_HEIGHT = 103;
-	private static final int RIGHT_PANEL_WIDTH = 80;
-	private static final int SPACE_BETWEEN_MAIN_PANELS = 5;
+	private static final int RIGHT_PANEL_WIDTH = 90;
+	private static final int SPACE_BETWEEN_MAIN_PANELS = 10;
 	private static final Color DOWNLOAD_ODD_BACKGROUND_COLOR = new Color(237, 241, 244);
 	private static final Color DOWNLOAD_EVEN_BACKGROUND_COLOR = new Color(255, 255, 255);
-	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.controlHighlight;
+	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.textHighlight;
 	
 	// SWING fields
 	private JPanel leftPanel;
@@ -154,9 +155,34 @@ public class SimpleDownloadPanel extends JPanel {
 		buttonStop.setAlignmentX(LEFT_ALIGNMENT);
 		buttonStop.setAlignmentY(TOP_ALIGNMENT);
 		
+		// Change the display
+		String defaultFontName = this.labelName.getFont().getName();
+		int defaultFontStyle = this.labelName.getFont().getStyle();
+		int defaultFontSize = this.labelName.getFont().getSize();
+		
+		this.labelURL.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelDestination.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelState.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelSpeed.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelStatusSeparator1.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelStatusSeparator2.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelProgression.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelEndDateDay.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		this.labelEndDateHour.setFont(new Font(defaultFontName, defaultFontStyle, defaultFontSize - 2));
+		Color dark = Color.DARK_GRAY.darker();
+		this.labelURL.setForeground(dark);
+		this.labelDestination.setForeground(dark);
+		this.labelState.setForeground(dark);
+		this.labelSpeed.setForeground(dark);
+		this.labelStatusSeparator1.setForeground(dark);
+		this.labelStatusSeparator2.setForeground(dark);
+		this.labelProgression.setForeground(dark);
+		this.labelEndDateDay.setForeground(dark);
+		this.labelEndDateHour.setForeground(dark);
+		
 		// Add the SWING components
 		this.detailsPanel.add(labelURL);
-		this.leftPanel.add(Box.createVerticalStrut(3));
+		this.detailsPanel.add(Box.createVerticalStrut(1));
 		this.detailsPanel.add(labelDestination);
 		
 		this.statusPanel.add(labelState);
@@ -165,7 +191,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.statusPanel.add(labelStatusSeparator2);
 		this.statusPanel.add(labelSpeed);
 		
-		this.leftPanel.add(Box.createVerticalStrut(1));
+		this.leftPanel.add(Box.createVerticalStrut(8));
 		this.leftPanel.add(Box.createVerticalGlue());
 		this.leftPanel.add(labelName);
 		this.leftPanel.add(Box.createVerticalStrut(3));
@@ -179,7 +205,10 @@ public class SimpleDownloadPanel extends JPanel {
 		this.leftPanel.add(statusPanel);
 		this.leftPanel.add(Box.createVerticalGlue());
 		this.leftPanel.add(Box.createVerticalStrut(2));
+		this.rightSubPanel.add(Box.createHorizontalGlue());
 		this.rightSubPanel.add(buttonStartPause);
+		this.rightSubPanel.add(Box.createHorizontalGlue());
+		this.rightSubPanel.add(Box.createHorizontalGlue());
 		this.rightSubPanel.add(buttonStop);
 		this.endDatePanel.add(labelEndDateDay);
 		this.endDatePanel.add(labelEndDateHour);
@@ -191,7 +220,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.add(leftPanel);
 		this.add(Box.createHorizontalStrut(SPACE_BETWEEN_MAIN_PANELS));
 		this.add(rightPanel);
-		this.add(Box.createHorizontalStrut(0));
+		this.add(Box.createHorizontalStrut(SPACE_BETWEEN_MAIN_PANELS));
 		
 		// Initialize the state of the components
 		this.endDatePanel.setVisible(false);
@@ -203,9 +232,16 @@ public class SimpleDownloadPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ControllerLocator.getInstance().deselectAllDownloadPanel();
-				SimpleDownloadPanel.this.isSelected = true;
-				tooglePanelState();
+				if (e.getButton() == MouseEvent.BUTTON1)
+				{
+					if (SimpleDownloadPanel.this.isSelected)
+						tooglePanelState();
+					
+					ControllerLocator.getInstance().deselectAllDownloadPanel();
+					
+					SimpleDownloadPanel.this.isSelected = true;
+					updateBackgroundColor();
+				}
 			}
 		});
 		
@@ -295,7 +331,7 @@ public class SimpleDownloadPanel extends JPanel {
 		this.setMaximumSize(new Dimension(Integer.MAX_VALUE, (isExtended ? EXTENDED_HEIGHT : FOLD_HEIGHT)));
 		setComponentSize(rightPanel, new Dimension(RIGHT_PANEL_WIDTH, (isExtended ? EXTENDED_HEIGHT : FOLD_HEIGHT)));
 		setComponentSize(leftPanel, new Dimension(
-				ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain().getScrollPanel().getWidth() - RIGHT_PANEL_WIDTH - SPACE_BETWEEN_MAIN_PANELS * 2,
+				ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain().getScrollPanel().getWidth() - RIGHT_PANEL_WIDTH - SPACE_BETWEEN_MAIN_PANELS * 3,
 				(isExtended ? EXTENDED_HEIGHT : FOLD_HEIGHT)));
 	}
 	

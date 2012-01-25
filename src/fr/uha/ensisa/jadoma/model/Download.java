@@ -103,6 +103,10 @@ public class Download {
 		this.startDate = startDate;
 	}
 	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
 	public int getNbrOfCompletedBytes() {
 		int result = 0;
 		for (DownloadPart d : this.listDownloadParts)
