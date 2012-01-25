@@ -42,6 +42,7 @@ public class ControllerFrmScheduler {
 			System.out.println(e.getMessage());
 		}
 		
+		ControllerLocator.getInstance().getScheduler().activate();
 		frmScheduler.setVisible(false);
 	}
 	

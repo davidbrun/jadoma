@@ -21,7 +21,7 @@ public class DownloadManager {
 	public DownloadManager() {
 		this.listDownloads = new ArrayList<Download>();
 		this.listDownloadThreads = new ArrayList<DownloadThread>();
-		this.scheduler = new Scheduler();
+		this.scheduler = ControllerLocator.getInstance().getScheduler();
 		this.nbrOfSimultaneousDownloads = 0;
 	}
 	
@@ -57,6 +57,14 @@ public class DownloadManager {
 			{
 				JOptionPane.showMessageDialog(ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain(),
 						"La limite de téléchargements simultanés est atteinte",
+						"Téléchargement non lancé", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
+			
+			if (!scheduler.canStartDownloading())
+			{
+				JOptionPane.showMessageDialog(ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain(),
+						"La planification empêche le téléchargement de commencer",
 						"Téléchargement non lancé", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}

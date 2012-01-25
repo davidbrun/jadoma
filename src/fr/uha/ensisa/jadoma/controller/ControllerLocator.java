@@ -44,6 +44,7 @@ public class ControllerLocator {
 			this.userPreferences = new UserPreferences();
 			this.scheduler = new Scheduler();
 		}
+		this.scheduler.activate();
     }
     
 	public static ControllerLocator getInstance() {
