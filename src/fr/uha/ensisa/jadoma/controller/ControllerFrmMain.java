@@ -1,6 +1,7 @@
 package fr.uha.ensisa.jadoma.controller;
 
 import fr.uha.ensisa.jadoma.model.DownloadManager;
+import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 
 public class ControllerFrmMain {
@@ -14,8 +15,6 @@ public class ControllerFrmMain {
 	public ControllerFrmMain(FrmMain frmMain) {
 		this.frmMain = frmMain;
 		this.downloadManager = new DownloadManager();
-		
-		//this.frmMain.pack();
 	}
 	
 	public void handleKeyUpPressedOnScrollPanel() {
@@ -30,6 +29,10 @@ public class ControllerFrmMain {
 		ControllerLocator.getInstance().deselectAllDownloadPanel();
 		ControllerLocator.getInstance().selectNextSimpleDownloadPanel(currentPosition);
 		frmMain.getVerticalScrollBar().setValue(ControllerLocator.getInstance().getPositionOfSelectedSimpleDownloadPanel() * frmMain.getVerticalScrollBar().getMaximum() / ControllerLocator.getInstance().getNbrOfDownloadPanels());
+	}
+	
+	public void handleButtonAddDownloadClick() {
+		new FrmAddDownload(frmMain, true).setVisible(true);
 	}
 	
 	public DownloadManager getDownloadManager() {

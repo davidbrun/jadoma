@@ -381,7 +381,7 @@ public class SimpleDownloadPanel extends JPanel {
 		labelEndDateHour.setText(dateFormat.format(download.getEndDate()));
 	}
 	
-	private static void setComponentSize(Component component, Dimension size) {
+	private void setComponentSize(Component component, Dimension size) {
 		component.setMinimumSize(size);
 		component.setMaximumSize(size);
 		component.setPreferredSize(size);

@@ -6,6 +6,9 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -120,6 +123,26 @@ public class FrmMain extends JFrame {
 		this.toolBar.add(Box.createHorizontalStrut(SPACE_BETWEEN_TOOLBAR_BUTTONS));
 		this.toolBar.add(buttonPreferences);
 		
+		// Add tooltips
+		this.buttonAddDownload.setToolTipText("Ajouter un téléchargement");
+		this.buttonAddDownloads.setToolTipText("Ajouter une liste de téléchargements");
+		this.buttonStartDownload.setToolTipText("Démarrer le téléchargement");
+		this.buttonStartDownloads.setToolTipText("Démarrer tous les téléchargements");
+		this.buttonPauseDownload.setToolTipText("Suspendre le téléchargement");
+		this.buttonPauseDownloads.setToolTipText("Suspendre tous les téléchargements");
+		this.buttonCancelDownload.setToolTipText("Annuler le téléchargement");
+		this.buttonCancelDownloads.setToolTipText("Annuler tous les téléchargements");
+		this.buttonPreferences.setToolTipText("Paramètres");
+		this.buttonScheduler.setToolTipText("Planifier les téléchargements");
+		
+		// Add listeners
+		this.buttonAddDownload.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadClick();
+			}
+		});
+		
 		// The bottom row
 		this.bottomPanel = new JPanel();
 		this.bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
@@ -128,6 +151,7 @@ public class FrmMain extends JFrame {
 		this.bottomPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		setComponentSize(bottomPanel, new Dimension(Integer.MAX_VALUE, 40));
 		this.buttonClearOldDownloads = new JButton("Effacer l'historique");
+		this.buttonClearOldDownloads.setToolTipText("Retirer les téléchargements terminés, annulés et ayant échoué de la liste");
 		this.buttonClearOldDownloads.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.buttonClearOldDownloads.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.bottomPanel.add(buttonClearOldDownloads);
@@ -184,7 +208,7 @@ public class FrmMain extends JFrame {
 		return this.scrollDownloads.getVerticalScrollBar();
 	}
 	
-	private static void setComponentSize(Component component, Dimension size) {
+	private void setComponentSize(Component component, Dimension size) {
 		component.setMinimumSize(size);
 		component.setMaximumSize(size);
 		component.setPreferredSize(size);
