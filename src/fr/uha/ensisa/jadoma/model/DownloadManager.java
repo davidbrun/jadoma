@@ -45,36 +45,45 @@ public class DownloadManager {
 	}
 	
 	public void startDownloading(Download download) throws MalformedURLException {
-		int downloadIndex = this.listDownloads.indexOf(download);
-		DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
-		
-		if (tmp.isDead())
+		if (download != null)
 		{
-			this.listDownloadThreads.remove(tmp);
-			tmp = null;
-			tmp = DownloadFactory.createDownloadThread(
-					ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(download).getSimpleDownloadPanel(),
-					download);
-			this.listDownloadThreads.add(downloadIndex, (DownloadThread) tmp);
+			int downloadIndex = this.listDownloads.indexOf(download);
+			DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
+			
+			if (tmp.isDead())
+			{
+				this.listDownloadThreads.remove(tmp);
+				tmp = null;
+				tmp = DownloadFactory.createDownloadThread(
+						ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(download).getSimpleDownloadPanel(),
+						download);
+				this.listDownloadThreads.add(downloadIndex, (DownloadThread) tmp);
+			}
+			if (!tmp.isRunning)
+				tmp.start();
 		}
-		if (!tmp.isRunning)
-			tmp.start();
 	}
 	
 	public void stopDownloading(Download download) {
-		DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
-		if (tmp.isRunning)
-			tmp.interrupt();
+		if (download != null)
+		{
+			DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
+			if (tmp.isRunning)
+				tmp.interrupt();
+		}
 	}
 	
 	public void cancelDownloading(Download download) {
-		DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
-		if (tmp.isRunning)
-			tmp.interrupt();
-		
-		new File(download.getFileDestination()).delete();
-		download.setEndDate(new Date());
-		download.setCurrentState(DownloadState.CANCELED);
+		if (download != null)
+		{
+			DownloadThread tmp = this.listDownloadThreads.get(this.listDownloads.indexOf(download));
+			if (tmp.isRunning)
+				tmp.interrupt();
+			
+			new File(download.getFileDestination()).delete();
+			download.setEndDate(new Date());
+			download.setCurrentState(DownloadState.CANCELED);
+		}
 	}
 	
 	public void startDownloading() throws MalformedURLException {
