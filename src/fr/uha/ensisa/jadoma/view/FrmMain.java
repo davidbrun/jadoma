@@ -222,6 +222,14 @@ public class FrmMain extends JFrame {
 		this.buttonClearOldDownloads.setAlignmentY(Component.CENTER_ALIGNMENT);
 		this.bottomPanel.add(buttonClearOldDownloads);
 		
+		// Add the listeners
+		this.buttonClearOldDownloads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonClearOldDownloadsClick();
+			}
+		});
+		
 		// The separators
 		this.hSeparator1 = new JPanel();
 		this.hSeparator1.setBackground(Color.DARK_GRAY);

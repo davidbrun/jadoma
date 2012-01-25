@@ -3,6 +3,7 @@ package fr.uha.ensisa.jadoma.controller;
 import java.util.ArrayList;
 import java.util.List;
 import fr.uha.ensisa.jadoma.model.Download;
+import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
@@ -132,5 +133,24 @@ public class ControllerLocator {
 	
 	public int getNbrOfDownloadPanels() {
 		return listCtrlSimpleDownloadPanels.size();
+	}
+
+	public void clearOldDownloads() {
+		for (int i = 0; i < listCtrlSimpleDownloadPanels.size(); i++)
+		{
+			ControllerSimpleDownloadPanel ctrl = listCtrlSimpleDownloadPanels.get(i);
+			if (ctrl.getDownload().getCurrentState() == DownloadState.CANCELED ||
+					ctrl.getDownload().getCurrentState() == DownloadState.COMPLETED)
+			{
+				listCtrlSimpleDownloadPanels.remove(ctrl);
+				Download tmp = ctrl.getDownload();
+				ctrlFrmMainInstance.getDownloadManager().removeDownload(tmp);
+				tmp = null;
+				SimpleDownloadPanel tmp2 = ctrl.getSimpleDownloadPanel();
+				ctrlFrmMainInstance.getFrmMain().getScrollPanel().remove(tmp2);
+				tmp2 = null;
+				ctrl = null;
+			}
+		}
 	}
 }

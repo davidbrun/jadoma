@@ -35,6 +35,12 @@ public class ControllerFrmMain {
 		new FrmAddDownload(frmMain, true).setVisible(true);
 	}
 	
+	public void handleButtonClearOldDownloadsClick() {
+		ControllerLocator.getInstance().clearOldDownloads();
+		frmMain.getScrollPanel().repaint(frmMain.getScrollPanel().getVisibleRect());
+		frmMain.pack();
+	}
+	
 	public DownloadManager getDownloadManager() {
 		return downloadManager;
 	}

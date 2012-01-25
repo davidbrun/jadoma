@@ -39,6 +39,11 @@ public class DownloadManager {
 				download));
 	}
 	
+	public void removeDownload(Download download) {
+		this.listDownloadThreads.remove(this.listDownloads.indexOf(download));
+		this.listDownloads.remove(download);
+	}
+	
 	public void startDownloading(Download download) throws MalformedURLException {
 		int downloadIndex = this.listDownloads.indexOf(download);
 		DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
