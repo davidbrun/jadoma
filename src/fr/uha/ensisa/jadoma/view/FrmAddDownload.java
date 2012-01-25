@@ -3,12 +3,16 @@ package fr.uha.ensisa.jadoma.view;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 
 public class FrmAddDownload extends JDialog {
@@ -188,6 +191,15 @@ public class FrmAddDownload extends JDialog {
             	ControllerLocator.getInstance().getCtrlFrmAddDownload().handleButtonDownloadClick();
             }
         });
+        
+        this.addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowOpened(WindowEvent e) {
+        		String url = getClipboard();
+        		if (url.startsWith("http://"))
+        			textFieldDownloadURL.setText(url);
+        	}
+		});
 	}
 	
 	public void clearURLField() {
@@ -200,6 +212,10 @@ public class FrmAddDownload extends JDialog {
 	
 	public void setDestinationFileText(String path) {
 		this.textFieldDestination.setText(path);
+	}
+	
+	public boolean isCheckBoxStartAutoChecked() {
+		return this.checkBoxStartAuto.isSelected();
 	}
 	
 	private void centerFrameInParent(JFrame parent)
@@ -218,7 +234,16 @@ public class FrmAddDownload extends JDialog {
 		component.setSize(size);
 	}
 
-	public boolean isCheckBoxStartAutoChecked() {
-		return this.checkBoxStartAuto.isSelected();
+	private String getClipboard() {
+	    Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+
+	    try {
+	        if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+	            String text = (String)t.getTransferData(DataFlavor.stringFlavor);
+	            return text;
+	        }
+	    } catch (Exception e) {
+	    }
+	    return null;
 	}
 }
