@@ -153,4 +153,17 @@ public class ControllerLocator {
 			}
 		}
 	}
+
+	public Download getSelectedDownload() {
+		Download result = null;
+		
+		for (ControllerSimpleDownloadPanel d : listCtrlSimpleDownloadPanels)
+			if (d.getSimpleDownloadPanel().isSelected())
+			{
+				result = d.getDownload();
+				break;
+			}
+		
+		return result;
+	}
 }

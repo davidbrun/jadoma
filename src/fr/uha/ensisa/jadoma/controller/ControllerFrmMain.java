@@ -1,8 +1,12 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.net.MalformedURLException;
+
 import fr.uha.ensisa.jadoma.model.DownloadManager;
 import fr.uha.ensisa.jadoma.view.FrmAddDownload;
+import fr.uha.ensisa.jadoma.view.FrmAddListDownloads;
 import fr.uha.ensisa.jadoma.view.FrmMain;
+import fr.uha.ensisa.jadoma.view.FrmPreferences;
 
 public class ControllerFrmMain {
 	
@@ -47,5 +51,49 @@ public class ControllerFrmMain {
 	
 	public FrmMain getFrmMain() {
 		return frmMain;
+	}
+
+	public void handleButtonStartDownloadClick() {
+		try {
+			downloadManager.startDownloading(ControllerLocator.getInstance().getSelectedDownload());
+		} catch (MalformedURLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void handleButtonPauseDownloadClick() {
+		downloadManager.stopDownloading(ControllerLocator.getInstance().getSelectedDownload());
+	}
+
+	public void handleButtonCancelDownloadClick() {
+		downloadManager.cancelDownloading(ControllerLocator.getInstance().getSelectedDownload());
+	}
+
+	public void handleButtonAddDownloadsClick() {
+		new FrmAddListDownloads(frmMain, true).setVisible(true);
+	}
+
+	public void handleButtonStartDownloadsClick() {
+		try {
+			downloadManager.startDownloading();
+		} catch (MalformedURLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void handleButtonPauseDownloadsClick() {
+		downloadManager.stopDownloading();
+	}
+
+	public void handleButtonCancelDownloadsClick() {
+		downloadManager.cancelDownloading();
+	}
+
+	public void handleButtonSchedulerClick() {
+		
+	}
+
+	public void handleButtonPreferencesClick() {
+		new FrmPreferences(frmMain, true).setVisible(true);
 	}
 }

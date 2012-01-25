@@ -87,6 +87,11 @@ public class DownloadManager {
 			this.stopDownloading(d);
 	}
 	
+	public void cancelDownloading() {
+		for (Download d : this.listDownloads)
+			this.cancelDownloading(d);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder("[scheduler: ");

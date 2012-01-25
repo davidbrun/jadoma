@@ -3,6 +3,8 @@ package fr.uha.ensisa.jadoma.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.util.UrlUtil;
@@ -20,8 +22,13 @@ public class ControllerFrmAddDownload {
 
 	public void handleButtonDownloadClick() {
 		String url = frmAddDownload.getTextFieldDownloadURL();
-		if(url.length() == 0)
+		if (url.length() == 0)
 			return;
+		
+		if (!url.startsWith("http://"))
+			JOptionPane.showMessageDialog(frmAddDownload, "Seul le protocol HTTP est supporté actuellement",
+					"Erreur de protocol", JOptionPane.WARNING_MESSAGE);
+			
 		
 		Download dl = DownloadFactory.createDownload(UrlUtil.getFileNameFromUrl(url), url);
 		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);

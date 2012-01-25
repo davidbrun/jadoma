@@ -161,6 +161,60 @@ public class FrmMain extends JFrame {
 				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadClick();
 			}
 		});
+		this.buttonStartDownload.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonStartDownloadClick();
+			}
+		});
+		this.buttonPauseDownload.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonPauseDownloadClick();
+			}
+		});
+		this.buttonCancelDownload.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonCancelDownloadClick();
+			}
+		});
+		this.buttonAddDownloads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadsClick();
+			}
+		});
+		this.buttonStartDownloads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonStartDownloadsClick();
+			}
+		});
+		this.buttonPauseDownloads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonPauseDownloadsClick();
+			}
+		});
+		this.buttonCancelDownloads.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonCancelDownloadsClick();
+			}
+		});
+		this.buttonScheduler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonSchedulerClick();
+			}
+		});
+		this.buttonPreferences.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonPreferencesClick();
+			}
+		});
 		
 		// The menu
 		this.menuBar = new JMenuBar();
@@ -199,14 +253,32 @@ public class FrmMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		
 		this.menuFile_AddDownload.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadClick();
 			}
 		});
+		this.menuFile_AddDownloads.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadsClick();
+			}
+		});
+		this.menuOptions_Scheduler.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonSchedulerClick();
+			}
+		});
+		this.menuOptions_Params.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonPreferencesClick();
+			}
+		});
 		
+		// Add
 		this.setJMenuBar(this.menuBar);
 		
 		// The bottom row
