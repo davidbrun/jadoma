@@ -29,6 +29,18 @@ public class ResourcesUtil
      * The image of the button to suspend a download
      */
     public static final ImageIcon PAUSE_BUTTON_IMAGE_ICON;
+    
+    public static final ImageIcon TOOLBAR_START_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_PAUSE_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_CANCEL_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_ADD_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_ADD_LIST_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_START_ALL_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_PAUSE_ALL_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_CANCEL_ALL_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_PREFERENCES_BUTTON_IMAGE_ICON;
+    public static final ImageIcon TOOLBAR_SCHEDULER_BUTTON_IMAGE_ICON;
+    
     /**
      * The image of the application used in the about box
      */
@@ -48,6 +60,18 @@ public class ResourcesUtil
         URL urlStartButtonImage = null;
         URL urlStopButtonImage = null;
         URL urlPauseButtonImage = null;
+        
+        URL urlAddDownloadButtonImage = null;
+        URL urlStartDownloadButtonImage = null;
+        URL urlPauseDownloadButtonImage = null;
+        URL urlCancelDownloadButtonImage = null;
+        URL urlAddDownloadsButtonImage = null;
+        URL urlStartDownloadsButtonImage = null;
+        URL urlPauseDownloadsButtonImage = null;
+        URL urlCancelDownloadsButtonImage = null;
+        URL urlPreferencesButtonImage = null;
+        URL urlSchedulerButtonImage = null;
+        
 //        URL urlAboutBoxImage = null;
 //        URL urlMarkerFeltFont = null;
         
@@ -57,6 +81,16 @@ public class ResourcesUtil
             urlStartButtonImage = new URL("file:" + RESOURCES_PATH + "/images/play_24x24.png");
             urlStopButtonImage = new URL("file:" + RESOURCES_PATH + "/images/cancel_24x24.png");
             urlPauseButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");
+            urlAddDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlStartDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlPauseDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlCancelDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlAddDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlStartDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlPauseDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlCancelDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlPreferencesButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
+            urlSchedulerButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
 //            urlAboutBoxImage = new URL("file:" + RESOURCES_PATH + "/images/");
 //            urlMarkerFeltFont = new URL("file:" + RESOURCES_PATH + "/fonts/MarkerFelt.pfb");
         }
@@ -68,6 +102,16 @@ public class ResourcesUtil
         	START_BUTTON_IMAGE_ICON = new ImageIcon(urlStartButtonImage);
         	STOP_BUTTON_IMAGE_ICON = new ImageIcon(urlStopButtonImage);
         	PAUSE_BUTTON_IMAGE_ICON = new ImageIcon(urlPauseButtonImage);
+        	TOOLBAR_START_BUTTON_IMAGE_ICON = new ImageIcon(urlStartDownloadButtonImage);
+            TOOLBAR_PAUSE_BUTTON_IMAGE_ICON = new ImageIcon(urlPauseDownloadButtonImage);
+            TOOLBAR_CANCEL_BUTTON_IMAGE_ICON = new ImageIcon(urlCancelDownloadButtonImage);
+            TOOLBAR_ADD_BUTTON_IMAGE_ICON = new ImageIcon(urlAddDownloadButtonImage);
+            TOOLBAR_ADD_LIST_BUTTON_IMAGE_ICON = new ImageIcon(urlAddDownloadsButtonImage);
+            TOOLBAR_START_ALL_BUTTON_IMAGE_ICON = new ImageIcon(urlStartDownloadsButtonImage);
+            TOOLBAR_PAUSE_ALL_BUTTON_IMAGE_ICON = new ImageIcon(urlPauseDownloadsButtonImage);
+            TOOLBAR_CANCEL_ALL_BUTTON_IMAGE_ICON = new ImageIcon(urlCancelDownloadsButtonImage);
+            TOOLBAR_PREFERENCES_BUTTON_IMAGE_ICON = new ImageIcon(urlPreferencesButtonImage);
+            TOOLBAR_SCHEDULER_BUTTON_IMAGE_ICON = new ImageIcon(urlSchedulerButtonImage);
 //            ABOUT_BOX_IMAGE_ICON = new ImageIcon(urlAboutBoxImage);
 //            MARKER_FELT_FONT = urlMarkerFeltFont;
         }
