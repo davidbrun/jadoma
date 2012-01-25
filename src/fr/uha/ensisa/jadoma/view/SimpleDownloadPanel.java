@@ -24,6 +24,16 @@ import fr.uha.ensisa.jadoma.util.TimeUtil;
 
 public class SimpleDownloadPanel extends JPanel {
 	
+	// Constants
+	private static final long serialVersionUID = -6443999510840611020L;
+	private static final int FOLD_HEIGHT = 70;
+	private static final int EXTENDED_HEIGHT = 103;
+	private static final int RIGHT_PANEL_WIDTH = 80;
+	private static final int SPACE_BETWEEN_MAIN_PANELS = 5;
+	private static final Color DOWNLOAD_ODD_BACKGROUND_COLOR = new Color(237, 241, 244);
+	private static final Color DOWNLOAD_EVEN_BACKGROUND_COLOR = new Color(255, 255, 255);
+	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.controlHighlight;
+	
 	// SWING fields
 	private JPanel leftPanel;
 	private JPanel rightPanel;
@@ -48,19 +58,6 @@ public class SimpleDownloadPanel extends JPanel {
 	// Fields
 	private boolean isExtended;
 	private boolean isSelected;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6443999510840611020L;
-	
-	private static final int FOLD_HEIGHT = 70;
-	private static final int EXTENDED_HEIGHT = 103;
-	private static final int RIGHT_PANEL_WIDTH = 80;
-	private static final int SPACE_BETWEEN_MAIN_PANELS = 5;
-	private static final Color DOWNLOAD_ODD_BACKGROUND_COLOR = new Color(237, 241, 244);
-	private static final Color DOWNLOAD_EVEN_BACKGROUND_COLOR = new Color(255, 255, 255);
-	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.controlHighlight;
 	
 	public SimpleDownloadPanel(Download download) {
 		super();

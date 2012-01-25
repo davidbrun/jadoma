@@ -3,6 +3,7 @@ package fr.uha.ensisa.jadoma.controller;
 import java.util.ArrayList;
 import java.util.List;
 import fr.uha.ensisa.jadoma.model.Download;
+import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
@@ -12,6 +13,7 @@ public class ControllerLocator {
     private static ControllerLocator thisInstance;
     private ControllerFrmMain ctrlFrmMainInstance;
     private List<ControllerSimpleDownloadPanel> listCtrlSimpleDownloadPanels;
+	private ControllerFrmAddDownload ctrlFrmAddDownloadInstance;
     
 	// Just to synchronize
     private static Object synchronousObject = new Object();
@@ -67,6 +69,14 @@ public class ControllerLocator {
 			}
 		
 		return result;
+	}
+	
+	public void createCtrlFrmAddDownload(FrmAddDownload frmAddDownload) {
+        ctrlFrmAddDownloadInstance = new ControllerFrmAddDownload(frmAddDownload);
+	}
+	
+	public ControllerFrmAddDownload getCtrlFrmAddDownload() {
+        return ctrlFrmAddDownloadInstance;
 	}
 	
 	public int getPositionOfSimpleDownloadPanel(SimpleDownloadPanel simpleDownloadPanel) {
