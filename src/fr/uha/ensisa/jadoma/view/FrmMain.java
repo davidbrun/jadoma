@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -13,11 +16,17 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
+import fr.uha.ensisa.jadoma.util.OSUtil;
 import fr.uha.ensisa.jadoma.util.ResourcesUtil;
 
 public class FrmMain extends JFrame {
@@ -47,6 +56,16 @@ public class FrmMain extends JFrame {
 	private JButton buttonClearOldDownloads;
 	private JPanel hSeparator1;
 	private JPanel hSeparator2;
+	private JMenuBar menuBar;
+	private JMenu menuFile;
+	private JMenu menuOptions;
+	private JMenu menuHelp;
+	private JMenuItem menuFile_AddDownload;
+	private JMenuItem menuFile_AddDownloads;
+	private JMenuItem menuFile_Quit;
+	private JMenuItem menuOptions_Scheduler;
+	private JMenuItem menuOptions_Params;
+	private JMenuItem menuHelp_About;
 
 	public FrmMain() {
 		super();
@@ -142,6 +161,53 @@ public class FrmMain extends JFrame {
 				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadClick();
 			}
 		});
+		
+		// The menu
+		this.menuBar = new JMenuBar();
+		this.menuFile = new JMenu("Fichier");
+		this.menuOptions = new JMenu("Options");
+		this.menuHelp = new JMenu("Aide");
+		this.menuFile_AddDownload = new JMenuItem("Télécharger un nouveau fichier");
+		this.menuFile_AddDownloads = new JMenuItem("Télécharger par lot");
+		this.menuFile_Quit = new JMenuItem("Quitter");
+		this.menuOptions_Scheduler = new JMenuItem("Planifier les téléchargements");
+		this.menuOptions_Params = new JMenuItem("Paramètres");
+		this.menuHelp_About = new JMenuItem("À propos de Jadoma");
+		// Add
+		this.menuBar.add(menuFile);
+		this.menuBar.add(menuOptions);
+		this.menuBar.add(menuHelp);
+		this.menuFile.add(menuFile_AddDownload);
+		this.menuFile.add(menuFile_AddDownloads);
+		if (!OSUtil.IS_MAC)
+		{
+			this.menuFile.addSeparator();
+			this.menuFile.add(menuFile_Quit);
+		}
+		this.menuOptions.add(menuOptions_Scheduler);
+		this.menuOptions.addSeparator();
+		this.menuOptions.add(menuOptions_Params);
+		this.menuHelp.add(menuHelp_About);
+		// Shortcuts
+		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		this.menuFile_Quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, mask));
+		this.menuFile_AddDownload.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, mask));
+		// Listeners
+		this.menuFile_Quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		this.menuFile_AddDownload.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmMain().handleButtonAddDownloadClick();
+			}
+		});
+		
+		this.setJMenuBar(this.menuBar);
 		
 		// The bottom row
 		this.bottomPanel = new JPanel();
