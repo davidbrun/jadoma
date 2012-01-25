@@ -7,6 +7,7 @@ import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmAddListDownloads;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.FrmPreferences;
+import fr.uha.ensisa.jadoma.view.FrmScheduler;
 
 public class ControllerFrmMain {
 	
@@ -90,7 +91,7 @@ public class ControllerFrmMain {
 	}
 
 	public void handleButtonSchedulerClick() {
-		
+		new FrmScheduler(frmMain, true).setVisible(true);
 	}
 
 	public void handleButtonPreferencesClick() {

@@ -7,10 +7,12 @@ import java.util.List;
 
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadState;
+import fr.uha.ensisa.jadoma.model.Scheduler;
 import fr.uha.ensisa.jadoma.model.UserPreferences;
 import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.FrmPreferences;
+import fr.uha.ensisa.jadoma.view.FrmScheduler;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerLocator {
@@ -22,6 +24,8 @@ public class ControllerLocator {
 	private ControllerFrmAddDownload ctrlFrmAddDownloadInstance;
 	private UserPreferences userPreferences;
 	private ControllerFrmPreferences ctrlFrmPreferencesInstance;
+	private ControllerFrmScheduler ctrlFrmSchedulerInstance;
+	private Scheduler scheduler;
     
 	// Just to synchronize
     private static Object synchronousObject = new Object();
@@ -34,8 +38,11 @@ public class ControllerLocator {
 		try {
 			ois = new ObjectInputStream(new FileInputStream("preferences.dat"));
 			this.userPreferences = (UserPreferences) ois.readObject();
+			ois = new ObjectInputStream(new FileInputStream("scheduler.dat"));
+			this.scheduler = (Scheduler) ois.readObject();
 		} catch (Exception e) {
 			this.userPreferences = new UserPreferences();
+			this.scheduler = new Scheduler();
 		}
     }
     
@@ -102,6 +109,15 @@ public class ControllerLocator {
 	public ControllerFrmPreferences getCtrlFrmPreferences() {
 		return ctrlFrmPreferencesInstance;
 	}
+	
+	public void createCtrlFrmScheduler(FrmScheduler frmScheduler) {
+		ctrlFrmSchedulerInstance = new ControllerFrmScheduler(frmScheduler);
+	}
+	
+	public ControllerFrmScheduler getCtrlFrmScheduler() {
+		return ctrlFrmSchedulerInstance;
+	}
+	
 	
 	public int getPositionOfSimpleDownloadPanel(SimpleDownloadPanel simpleDownloadPanel) {
 		int result = -1;
@@ -193,5 +209,9 @@ public class ControllerLocator {
 	
 	public UserPreferences getUserPreferences() {
 		return userPreferences;
+	}
+
+	public Scheduler getScheduler() {
+		return scheduler;
 	}
 }

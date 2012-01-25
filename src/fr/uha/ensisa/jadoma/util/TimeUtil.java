@@ -1,5 +1,7 @@
 package fr.uha.ensisa.jadoma.util;
 
+import java.util.Date;
+
 public class TimeUtil {
 	
 	public static String getFormattedTime(long seconds) {
@@ -31,5 +33,21 @@ public class TimeUtil {
 			result.append("Quelques instants restant");
 		
 		return result.toString();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static Date getTimeFromString(String time) {
+		Date result = new Date();
+		
+		try {
+			String[] tmp = time.split(":");
+			result.setHours(Integer.valueOf(tmp[0]));
+			result.setMinutes(Integer.valueOf(tmp[1]));
+			result.setSeconds(Integer.valueOf(tmp[2]));
+			return result;
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 }
