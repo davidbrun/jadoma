@@ -58,7 +58,14 @@ public class ControllerFrmAddDownload {
 	}
 	
 	public void handleButtonDownloadAllClick() {
-		String url = frmAddDownload.getTextFieldDownloadURL();
+		String urls = frmAddDownload.getTextFieldDownloadURL();
+		String[] splitedUrl = urls.split("\n");
+		
+		for (String s : splitedUrl)
+			if (s.length() != 0 && s.startsWith("http://") && new File(frmAddDownload.getDestinationFileText()).canWrite())
+				addDownload(s);
+		
+		frmAddDownload.setVisible(false);
 	}
 	
 	private void addDownload(String url) {

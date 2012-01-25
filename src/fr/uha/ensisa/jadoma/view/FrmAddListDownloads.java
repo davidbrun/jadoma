@@ -24,6 +24,9 @@ public class FrmAddListDownloads extends FrmAddDownload {
 		initComponents();
 		
 		super.centerFrameInParent(owner);
+		
+		// Initialization of the associated controller
+		ControllerLocator.getInstance().createCtrlFrmAddDownload(this);
 	}
 	
 	private void initComponents() {
@@ -55,5 +58,10 @@ public class FrmAddListDownloads extends FrmAddDownload {
 		});
 		
 		super.setSize(new Dimension(super.getWidth(), super.getHeight() + 70));
+	}
+	
+	@Override
+	public String getTextFieldDownloadURL() {
+		return this.textFieldDownloadURL.getText();
 	}
 }

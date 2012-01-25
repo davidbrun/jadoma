@@ -79,7 +79,7 @@ public class FrmAddDownload extends JDialog {
 		this.panelButtons = new JPanel();
 		this.panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.X_AXIS));
 		this.labelTextFieldUrl = new JLabel(" URL du téléchargement :");
-		this.textFieldDownloadURL = new JTextField("http://test-debit.free.fr/image.iso");
+		this.textFieldDownloadURL = new JTextField("");
 		this.labelTextFieldDestination = new JLabel(" Enregistrer dans le dossier :");
 		this.panelDestinationFile = new JPanel();
 		this.panelDestinationFile.setLayout(new BoxLayout(panelDestinationFile, BoxLayout.X_AXIS));
@@ -208,7 +208,7 @@ public class FrmAddDownload extends JDialog {
 	}
 	
 	public String getTextFieldDownloadURL() {
-		return textFieldDownloadURL.getText();
+		return this.textFieldDownloadURL.getText();
 	}
 	
 	public void setDestinationFileText(String path) {

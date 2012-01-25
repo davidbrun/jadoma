@@ -69,7 +69,7 @@ public class DownloadManager {
 						"Téléchargement non lancé", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
-				
+			
 			int downloadIndex = this.listDownloads.indexOf(download);
 			DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
 			
