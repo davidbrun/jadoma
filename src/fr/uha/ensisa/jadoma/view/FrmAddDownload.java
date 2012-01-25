@@ -25,27 +25,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.text.JTextComponent;
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 
 public class FrmAddDownload extends JDialog {
 
 	// Constants
 	private static final long serialVersionUID = 5065872976301103539L;
-	private static final int WINDOW_MINIMUM_WIDTH = 600;
-	private static final int WINDOW_MINIMUM_HEIGHT = 200;
+	protected static final int WINDOW_MINIMUM_WIDTH = 600;
+	protected static final int WINDOW_MINIMUM_HEIGHT = 200;
 	
 	// SWING components
-	private JPanel panelContent;
-	private JPanel panelButtons;
-	private JLabel labelTextFieldUrl;
-	private JTextField textFieldDownloadURL;
-	private JLabel labelTextFieldDestination;
-	private JPanel panelDestinationFile;
-	private JButton buttonBrowse;
-	private JTextField textFieldDestination;
-	private JCheckBox checkBoxStartAuto;
-	private JButton buttonDownload;
-	private JButton buttonCancel;
+	protected JPanel panelContent;
+	protected JPanel panelButtons;
+	protected JLabel labelTextFieldUrl;
+	protected JTextComponent textFieldDownloadURL;
+	protected JLabel labelTextFieldDestination;
+	protected JPanel panelDestinationFile;
+	protected JButton buttonBrowse;
+	protected JTextField textFieldDestination;
+	protected JCheckBox checkBoxStartAuto;
+	protected JButton buttonDownload;
+	protected JButton buttonCancel;
 	
 	public FrmAddDownload(JFrame owner, boolean modality) {
 		super(owner, modality);
@@ -55,13 +56,13 @@ public class FrmAddDownload extends JDialog {
 		
 		// Initialization of the associated controller
 		ControllerLocator.getInstance().createCtrlFrmAddDownload(this);
+	    
+		// Ask the layout manager to do its work
+		this.pack();
 		
 		// Center the window in the parent
 	    this.setLocationRelativeTo(owner);
 		this.centerFrameInParent(owner);
-	    
-		// Ask the layout manager to do its work
-		this.pack();
 	}
 
 	@SuppressWarnings("serial")
@@ -218,7 +219,7 @@ public class FrmAddDownload extends JDialog {
 		return this.checkBoxStartAuto.isSelected();
 	}
 	
-	private void centerFrameInParent(JFrame parent)
+	protected void centerFrameInParent(JFrame parent)
     {
         // Works also if the about frame is larger than the main frame
         int x = parent.getWidth() / 2 - this.getWidth() / 2 + parent.getX();
@@ -227,7 +228,7 @@ public class FrmAddDownload extends JDialog {
         this.setLocation(x, y);
     }
 	
-	private void setComponentSize(Component component, Dimension size) {
+	protected void setComponentSize(Component component, Dimension size) {
 		component.setMinimumSize(size);
 		component.setMaximumSize(size);
 		component.setPreferredSize(size);

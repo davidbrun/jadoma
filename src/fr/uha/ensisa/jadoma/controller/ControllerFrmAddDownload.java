@@ -69,4 +69,8 @@ public class ControllerFrmAddDownload {
 			}
 		 }
 	}
+
+	public void handleButtonDownloadAllClick() {
+		//TODO: regex
+	}
 }
