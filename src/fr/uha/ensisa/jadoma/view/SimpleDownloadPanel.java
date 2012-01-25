@@ -7,22 +7,20 @@ import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.util.ResourcesUtil;
 import fr.uha.ensisa.jadoma.util.SizeUtil;
+import fr.uha.ensisa.jadoma.util.TimeUtil;
 
 public class SimpleDownloadPanel extends JPanel {
 	
@@ -280,11 +278,7 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	public void updateStateLabel() {
 		Download download = ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload();
-		Long timeBeforeEnd = (long) (download.getSize() / download.getLastKnownSpeed());
-		Date d = new Date();
-		d.setTime(new Date().getTime() + timeBeforeEnd * 1000);
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy à HH:mm:ss");
-		labelState.setText("Fin estimée : le " + dateFormat.format(d));
+		labelState.setText("Temps restant : " + TimeUtil.getFormattedTime((long) ((download.getSize() - download.getNbrOfCompletedBytes()) / download.getLastKnownSpeed())));
 	}
 	
 	public void updateProgressionLabel() {
@@ -324,7 +318,7 @@ public class SimpleDownloadPanel extends JPanel {
 		{
 			buttonStartPause.setIcon(ResourcesUtil.PAUSE_BUTTON_IMAGE_ICON);
 			buttonStartPause.setToolTipText("Suspendre");
-			labelState.setText("Fin estimée : ");
+			labelState.setText("Temps restant : ∞");
 		}
 		else if (download.getCurrentState() == DownloadState.COMPLETED)
 		{
