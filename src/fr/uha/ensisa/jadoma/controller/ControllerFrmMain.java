@@ -1,13 +1,21 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
-
+import java.util.ArrayList;
+import java.util.List;
+import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadManager;
+import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmAddListDownloads;
 import fr.uha.ensisa.jadoma.view.FrmMain;
 import fr.uha.ensisa.jadoma.view.FrmPreferences;
 import fr.uha.ensisa.jadoma.view.FrmScheduler;
+import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerFrmMain {
 	
@@ -20,6 +28,41 @@ public class ControllerFrmMain {
 	public ControllerFrmMain(FrmMain frmMain) {
 		this.frmMain = frmMain;
 		this.downloadManager = new DownloadManager();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void importDownloads() {
+		List<Download> listDownloads;
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream(new FileInputStream("history.dat"));
+			listDownloads = (List<Download>) ois.readObject();
+		} catch (Exception e) {
+			listDownloads = new ArrayList<Download>();
+		}
+		
+		for (int i = 0; i < listDownloads.size(); i++)
+		{
+			Download dl = listDownloads.get(i);
+			SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
+		
+			try {
+				downloadManager.addDownload(dl);
+				frmMain.addDownloadPanel(downloadPanel);
+				downloadPanel.updateBackgroundColor();
+			} catch (MalformedURLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			frmMain.pack();
+			
+			if (dl.getCurrentState() == DownloadState.DOWNLOADING)
+				try {
+					ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().startDownloading(dl);
+				} catch (MalformedURLException e) {
+					System.out.println(e.getMessage());
+				}
+		}
 	}
 	
 	public void handleKeyUpPressedOnScrollPanel() {
@@ -44,6 +87,7 @@ public class ControllerFrmMain {
 		ControllerLocator.getInstance().clearOldDownloads();
 		frmMain.getScrollPanel().repaint(frmMain.getScrollPanel().getVisibleRect());
 		frmMain.pack();
+		saveDownloads();
 	}
 	
 	public DownloadManager getDownloadManager() {
@@ -96,5 +140,15 @@ public class ControllerFrmMain {
 
 	public void handleButtonPreferencesClick() {
 		new FrmPreferences(frmMain, true).setVisible(true);
+	}
+
+	public void saveDownloads() {
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream("history.dat"));
+			oos.writeObject(downloadManager.getListDownloads());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

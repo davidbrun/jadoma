@@ -1,6 +1,11 @@
 package fr.uha.ensisa.jadoma.model;
 
-public abstract class DownloadPart {
+import java.io.Serializable;
+
+public abstract class DownloadPart implements Serializable {
+	
+	// Constants
+	private static final long serialVersionUID = -4567321286992582627L;
 	
 	private int beginByte;
 	private int endByte;

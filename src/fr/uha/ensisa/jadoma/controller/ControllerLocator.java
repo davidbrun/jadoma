@@ -26,7 +26,7 @@ public class ControllerLocator {
 	private ControllerFrmPreferences ctrlFrmPreferencesInstance;
 	private ControllerFrmScheduler ctrlFrmSchedulerInstance;
 	private Scheduler scheduler;
-    
+	
 	// Just to synchronize
     private static Object synchronousObject = new Object();
     
@@ -34,12 +34,13 @@ public class ControllerLocator {
     private ControllerLocator() {
     	listCtrlSimpleDownloadPanels = new ArrayList<ControllerSimpleDownloadPanel>();
     	// Load the user preferences
-        ObjectInputStream ois;
+    	ObjectInputStream ois;
 		try {
 			ois = new ObjectInputStream(new FileInputStream("preferences.dat"));
 			this.userPreferences = (UserPreferences) ois.readObject();
 			ois = new ObjectInputStream(new FileInputStream("scheduler.dat"));
 			this.scheduler = (Scheduler) ois.readObject();
+			
 		} catch (Exception e) {
 			this.userPreferences = new UserPreferences();
 			this.scheduler = new Scheduler();

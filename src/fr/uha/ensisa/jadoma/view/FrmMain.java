@@ -79,6 +79,9 @@ public class FrmMain extends JFrame {
 		// Initialization of the associated controller
 		ControllerLocator.getInstance().createCtrlFrmMain(this);
 		
+		// Load the download history
+		ControllerLocator.getInstance().getCtrlFrmMain().importDownloads();
+		
 		// Ask the layout manager to do its work
 		this.pack();
 		

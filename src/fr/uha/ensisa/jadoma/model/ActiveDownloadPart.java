@@ -2,6 +2,10 @@ package fr.uha.ensisa.jadoma.model;
 
 public class ActiveDownloadPart extends DownloadPart {
 	
+	// Constant
+	private static final long serialVersionUID = -9072506485590629132L;
+	
+	// Fields
 	private int nbrOfCompletedBytes;
 	
 	public ActiveDownloadPart(int beginByte, int endByte) {

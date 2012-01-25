@@ -1,6 +1,7 @@
 package fr.uha.ensisa.jadoma.model;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -8,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Download {
+public class Download implements Serializable {
+	
+	// Constant
+	private static final long serialVersionUID = -7305976357855595681L;
 	
 	private String name;
 	private String urlFrom;

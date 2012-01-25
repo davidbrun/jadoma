@@ -6,6 +6,9 @@ import fr.uha.ensisa.jadoma.model.DownloadState;
 
 public class DownloadViewModel extends Download {
 	
+	// Constants
+	private static final long serialVersionUID = 2988173960004590105L;
+
 	public DownloadViewModel(String name, String url) {
 		super(name, url);
 	}
@@ -19,6 +22,8 @@ public class DownloadViewModel extends Download {
 			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().incrNbrOfSimultaneousDownloads();
 		else
 			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().decrNbrOfSimultaneousDownloads();
+		
+		ControllerLocator.getInstance().getCtrlFrmMain().saveDownloads();
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package fr.uha.ensisa.jadoma.model;
 
-public enum DownloadState {
+import java.io.Serializable;
+
+public enum DownloadState implements Serializable {
 	DOWNLOADING, PAUSED, CANCELED, COMPLETED
 }

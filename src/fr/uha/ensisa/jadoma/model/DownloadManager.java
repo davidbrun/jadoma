@@ -13,6 +13,7 @@ import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 
 public class DownloadManager {
 	
+	// Fields
 	private List<Download> listDownloads;
 	private List<DownloadThread> listDownloadThreads;
 	private Scheduler scheduler;
@@ -143,5 +144,9 @@ public class DownloadManager {
 		res.append("]");
 		
 		return res.toString();
+	}
+
+	public List<Download> getListDownloads() {
+		return this.listDownloads;
 	}
 }
