@@ -5,6 +5,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import fr.uha.ensisa.jadoma.controller.ControllerLocator;
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 
@@ -13,11 +16,13 @@ public class DownloadManager {
 	private List<Download> listDownloads;
 	private List<DownloadThread> listDownloadThreads;
 	private Scheduler scheduler;
+	private int nbrOfSimultaneousDownloads;
 	
 	public DownloadManager() {
 		this.listDownloads = new ArrayList<Download>();
 		this.listDownloadThreads = new ArrayList<DownloadThread>();
 		this.scheduler = new Scheduler();
+		this.nbrOfSimultaneousDownloads = 0;
 	}
 	
 	public Download getDownload(int index) {
@@ -47,6 +52,15 @@ public class DownloadManager {
 	public void startDownloading(Download download) throws MalformedURLException {
 		if (download != null)
 		{
+			if (nbrOfSimultaneousDownloads >= ControllerLocator.getInstance().getUserPreferences().getNbrOfSimultaneousDownloads()
+					&& ControllerLocator.getInstance().getUserPreferences().getNbrOfSimultaneousDownloads() >= 0)
+			{
+				JOptionPane.showMessageDialog(ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain(),
+						"La limite de téléchargements simultanés est atteinte",
+						"Téléchargement non lancé", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
+				
 			int downloadIndex = this.listDownloads.indexOf(download);
 			DownloadThread tmp = this.listDownloadThreads.get(downloadIndex);
 			
@@ -99,6 +113,14 @@ public class DownloadManager {
 	public void cancelDownloading() {
 		for (Download d : this.listDownloads)
 			this.cancelDownloading(d);
+	}
+	
+	public synchronized void incrNbrOfSimultaneousDownloads() {
+		this.nbrOfSimultaneousDownloads++;
+	}
+	
+	public synchronized void decrNbrOfSimultaneousDownloads() {
+		this.nbrOfSimultaneousDownloads--;
 	}
 	
 	@Override

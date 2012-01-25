@@ -14,6 +14,11 @@ public class DownloadViewModel extends Download {
 	public void setCurrentState(DownloadState currentState) {
 		super.setCurrentState(currentState);
 		ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getSimpleDownloadPanel().toogleDownloadState();
+		
+		if (currentState == DownloadState.DOWNLOADING)
+			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().incrNbrOfSimultaneousDownloads();
+		else
+			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().decrNbrOfSimultaneousDownloads();
 	}
 	
 	@Override
