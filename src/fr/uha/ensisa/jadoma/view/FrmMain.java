@@ -97,7 +97,7 @@ public class FrmMain extends JFrame {
 		this.scrollDownloads = new JScrollPane();
 		this.scrollDownloads.setBorder(null);
 		this.scrollDownloads.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scrollDownloads.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		this.scrollDownloads.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.scrollDownloads.setViewportView(this.scrollPanel);
 		
 		// The toolbar

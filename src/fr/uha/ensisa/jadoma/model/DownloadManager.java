@@ -52,7 +52,7 @@ public class DownloadManager {
 	public void startDownloading(Download download) throws MalformedURLException {
 		if (download != null)
 		{
-			if (nbrOfSimultaneousDownloads >= ControllerLocator.getInstance().getUserPreferences().getNbrOfSimultaneousDownloads()
+			if (this.nbrOfSimultaneousDownloads >= ControllerLocator.getInstance().getUserPreferences().getNbrOfSimultaneousDownloads()
 					&& ControllerLocator.getInstance().getUserPreferences().getNbrOfSimultaneousDownloads() >= 0)
 			{
 				JOptionPane.showMessageDialog(ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain(),

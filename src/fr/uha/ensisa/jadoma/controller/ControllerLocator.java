@@ -166,6 +166,7 @@ public class ControllerLocator {
 					ctrl.getDownload().getCurrentState() == DownloadState.COMPLETED)
 			{
 				listCtrlSimpleDownloadPanels.remove(ctrl);
+				i--;
 				Download tmp = ctrl.getDownload();
 				ctrlFrmMainInstance.getDownloadManager().removeDownload(tmp);
 				tmp = null;
