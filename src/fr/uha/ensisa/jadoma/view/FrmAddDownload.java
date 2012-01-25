@@ -28,7 +28,7 @@ public class FrmAddDownload extends JDialog {
 
 	// Constants
 	private static final long serialVersionUID = 5065872976301103539L;
-	private static final int WINDOW_MINIMUM_WIDTH = 400;
+	private static final int WINDOW_MINIMUM_WIDTH = 600;
 	private static final int WINDOW_MINIMUM_HEIGHT = 200;
 	
 	// SWING components
@@ -154,6 +154,13 @@ public class FrmAddDownload extends JDialog {
 			}
 		});
 		
+		this.buttonBrowse.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControllerLocator.getInstance().getCtrlFrmAddDownload().handleButtonBrowseClick();
+			}
+		});
+		
 		this.textFieldDownloadURL.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -191,6 +198,10 @@ public class FrmAddDownload extends JDialog {
 		return textFieldDownloadURL.getText();
 	}
 	
+	public void setDestinationFileText(String path) {
+		this.textFieldDestination.setText(path);
+	}
+	
 	private void centerFrameInParent(JFrame parent)
     {
         // Works also if the about frame is larger than the main frame
@@ -205,5 +216,9 @@ public class FrmAddDownload extends JDialog {
 		component.setMaximumSize(size);
 		component.setPreferredSize(size);
 		component.setSize(size);
+	}
+
+	public boolean isCheckBoxStartAutoChecked() {
+		return this.checkBoxStartAuto.isSelected();
 	}
 }

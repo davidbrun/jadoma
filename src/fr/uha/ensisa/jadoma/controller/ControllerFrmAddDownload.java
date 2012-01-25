@@ -1,6 +1,8 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.JFileChooser;
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.util.UrlUtil;
@@ -34,9 +36,30 @@ public class ControllerFrmAddDownload {
 		}
 		
 		ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain().pack();
+		
+		if (frmAddDownload.isCheckBoxStartAutoChecked())
+			; //TODO: launch automatically the download
+		
+		frmAddDownload.setVisible(false);
 	}
 
 	public void handleButtonCancelClick() {
 		frmAddDownload.setVisible(false);
+	}
+	
+	public void handleButtonBrowseClick() {
+		 JFileChooser fileChooser = new JFileChooser();
+	     //TODO: start at the stored folder
+		 fileChooser.setCurrentDirectory(new java.io.File("."));
+		 fileChooser.setDialogTitle("Rechercher un dossier");
+		 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		 fileChooser.setAcceptAllFileFilterUsed(false);
+		 if (fileChooser.showOpenDialog(frmAddDownload) == JFileChooser.APPROVE_OPTION) { 
+			try {
+				frmAddDownload.setDestinationFileText(fileChooser.getSelectedFile().getCanonicalPath());
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		 }
 	}
 }
