@@ -1,12 +1,16 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadState;
 import fr.uha.ensisa.jadoma.model.UserPreferences;
 import fr.uha.ensisa.jadoma.view.FrmAddDownload;
 import fr.uha.ensisa.jadoma.view.FrmMain;
+import fr.uha.ensisa.jadoma.view.FrmPreferences;
 import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class ControllerLocator {
@@ -17,6 +21,7 @@ public class ControllerLocator {
     private List<ControllerSimpleDownloadPanel> listCtrlSimpleDownloadPanels;
 	private ControllerFrmAddDownload ctrlFrmAddDownloadInstance;
 	private UserPreferences userPreferences;
+	private ControllerFrmPreferences ctrlFrmPreferencesInstance;
     
 	// Just to synchronize
     private static Object synchronousObject = new Object();
@@ -25,8 +30,13 @@ public class ControllerLocator {
     private ControllerLocator() {
     	listCtrlSimpleDownloadPanels = new ArrayList<ControllerSimpleDownloadPanel>();
     	// Load the user preferences
-    	//TODO: Load the user preferences
-    	this.userPreferences = new UserPreferences();
+        ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream(new FileInputStream("preferences.dat"));
+			this.userPreferences = (UserPreferences) ois.readObject();
+		} catch (Exception e) {
+			this.userPreferences = new UserPreferences();
+		}
     }
     
 	public static ControllerLocator getInstance() {
@@ -83,6 +93,14 @@ public class ControllerLocator {
 	
 	public ControllerFrmAddDownload getCtrlFrmAddDownload() {
         return ctrlFrmAddDownloadInstance;
+	}
+	
+	public void createCtrlFrmPreferences(FrmPreferences frmPreferences) {
+		ctrlFrmPreferencesInstance = new ControllerFrmPreferences(frmPreferences);
+	}
+	
+	public ControllerFrmPreferences getCtrlFrmPreferences() {
+		return ctrlFrmPreferencesInstance;
 	}
 	
 	public int getPositionOfSimpleDownloadPanel(SimpleDownloadPanel simpleDownloadPanel) {

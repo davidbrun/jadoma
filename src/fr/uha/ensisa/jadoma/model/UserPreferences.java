@@ -7,6 +7,7 @@ public class UserPreferences implements Serializable {
 	// Constants
 	private static final long serialVersionUID = -3360418721439469588L;
 	
+	// Fields
 	private String destinationFolder;
 	private boolean startDownloadAuto;
 	private int nbrOfSimultaneousDownloads;
