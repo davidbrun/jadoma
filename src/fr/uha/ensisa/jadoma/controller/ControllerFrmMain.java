@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.model.DownloadManager;
 import fr.uha.ensisa.jadoma.model.DownloadState;
@@ -45,7 +46,7 @@ public class ControllerFrmMain {
 		{
 			Download dl = listDownloads.get(i);
 			SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
-		
+			
 			try {
 				downloadManager.addDownload(dl);
 				frmMain.addDownloadPanel(downloadPanel);

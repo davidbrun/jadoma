@@ -5,10 +5,10 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -71,6 +71,9 @@ public class SimpleDownloadPanel extends JPanel {
 		
 		// Initialization of the values of the SWING components
 		this.initComponentValues(download);
+		
+		// Initialization of the display
+		this.toogleDownloadState();
 	}
 
 	private void initSwingComponents() {
@@ -287,7 +290,8 @@ public class SimpleDownloadPanel extends JPanel {
 		String[] tmp2 = SizeUtil.getFormattedSize(download.getSize());
 		labelProgression.setText(tmp[0] + " " + tmp[1] + " sur " + tmp2[0] + " " + tmp2[1]);
 		labelStatusSeparator2.setText("  ");
-		labelSpeed.setText("(0 o/s)");
+		DecimalFormat df = new DecimalFormat("0.0");
+		labelSpeed.setText("-  " + df.format(download.getProgress() * 100) + " %" + "  " + "(0 o/s)");
 		
 		buttonStartPause.setToolTipText("Télécharger");
 		buttonStop.setToolTipText("Annuler");
@@ -306,7 +310,9 @@ public class SimpleDownloadPanel extends JPanel {
 	
 	public void setSpeedLabel(float downloadSpeed) {
 		String[] tmp = SizeUtil.getFormattedSize(downloadSpeed);
-		labelSpeed.setText("(" + tmp[0] + " " + tmp[1] + "/s)");
+		DecimalFormat df = new DecimalFormat("0.0");
+		labelSpeed.setText("-  " + df.format(ControllerLocator.getInstance().getCtrlSimpleDownloadPanel(this).getDownload().getProgress() * 100) +
+				" %" + "  " + "(" + tmp[0] + " " + tmp[1] + "/s)");
 	}
 	
 	public void updateStateLabel() {
@@ -321,6 +327,10 @@ public class SimpleDownloadPanel extends JPanel {
 		tmp = SizeUtil.getFormattedSize(download.getSize());
 		String total = tmp[0] + " " + tmp[1];
 		labelProgression.setText(current + " sur " + total);
+	}
+	
+	public void setExtended(boolean isExtended) {
+		this.isExtended = isExtended;
 	}
 	
 	public void tooglePanelState() {
