@@ -40,6 +40,7 @@ public class ResourcesUtil
     public static final ImageIcon TOOLBAR_CANCEL_ALL_BUTTON_IMAGE_ICON;
     public static final ImageIcon TOOLBAR_PREFERENCES_BUTTON_IMAGE_ICON;
     public static final ImageIcon TOOLBAR_SCHEDULER_BUTTON_IMAGE_ICON;
+    public static final ImageIcon ABOUT_BOX_IMAGE_ICON;
     
     /**
      * The image of the application used in the about box
@@ -71,8 +72,7 @@ public class ResourcesUtil
         URL urlCancelDownloadsButtonImage = null;
         URL urlPreferencesButtonImage = null;
         URL urlSchedulerButtonImage = null;
-        
-//        URL urlAboutBoxImage = null;
+        URL urlAboutBoxImage = null;
 //        URL urlMarkerFeltFont = null;
         
         try
@@ -81,17 +81,18 @@ public class ResourcesUtil
             urlStartButtonImage = new URL("file:" + RESOURCES_PATH + "/images/play_24x24.png");
             urlStopButtonImage = new URL("file:" + RESOURCES_PATH + "/images/cancel_24x24.png");
             urlPauseButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");
-            urlAddDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlStartDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlPauseDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlCancelDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlAddDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlStartDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlPauseDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlCancelDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlPreferencesButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-            urlSchedulerButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause_24x24.png");;
-//            urlAboutBoxImage = new URL("file:" + RESOURCES_PATH + "/images/");
+            
+            urlAddDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/add_32x32.png");;
+            urlStartDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/play_32x32.png");;
+            urlPauseDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/stop_32x32.png");;
+            urlCancelDownloadButtonImage = new URL("file:" + RESOURCES_PATH + "/images/cancel_32x32.png");;
+            urlAddDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/add-all_32x32.png");;
+            urlStartDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/play-all_32x32.png");;
+            urlPauseDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/pause-all_32x32.png");;
+            urlCancelDownloadsButtonImage = new URL("file:" + RESOURCES_PATH + "/images/cancel-all_32x32.png");;
+            urlPreferencesButtonImage = new URL("file:" + RESOURCES_PATH + "/images/settings_32x32.png");;
+            urlSchedulerButtonImage = new URL("file:" + RESOURCES_PATH + "/images/scheduler_32x32.png");;
+            urlAboutBoxImage = new URL("file:" + RESOURCES_PATH + "/images/help_32x32.png");
 //            urlMarkerFeltFont = new URL("file:" + RESOURCES_PATH + "/fonts/MarkerFelt.pfb");
         }
         catch (Exception e)
@@ -112,7 +113,7 @@ public class ResourcesUtil
             TOOLBAR_CANCEL_ALL_BUTTON_IMAGE_ICON = new ImageIcon(urlCancelDownloadsButtonImage);
             TOOLBAR_PREFERENCES_BUTTON_IMAGE_ICON = new ImageIcon(urlPreferencesButtonImage);
             TOOLBAR_SCHEDULER_BUTTON_IMAGE_ICON = new ImageIcon(urlSchedulerButtonImage);
-//            ABOUT_BOX_IMAGE_ICON = new ImageIcon(urlAboutBoxImage);
+            ABOUT_BOX_IMAGE_ICON = new ImageIcon(urlAboutBoxImage);
 //            MARKER_FELT_FONT = urlMarkerFeltFont;
         }
     }
