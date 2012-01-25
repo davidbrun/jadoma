@@ -12,7 +12,6 @@ import fr.uha.ensisa.jadoma.view.SimpleDownloadPanel;
 
 public class UniPartDownloadThread extends DownloadThread {
 	
-	private static final String DESTINATION_DIRECTORY = System.getProperty("user.home") + "/";
 	private static final int MAX_BUFFER_SIZE = 1024;
 	private HttpConnection httpConnection;
     private RandomAccessFile fileDestination;
@@ -27,7 +26,6 @@ public class UniPartDownloadThread extends DownloadThread {
 		
 		// Create the output file
 		try {
-			download.setFileDestination(DESTINATION_DIRECTORY + this.download.getName());
 			this.fileDestination = new RandomAccessFile(download.getFileDestination(), "rw");
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());

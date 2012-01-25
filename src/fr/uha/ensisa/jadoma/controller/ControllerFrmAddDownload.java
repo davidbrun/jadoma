@@ -1,10 +1,10 @@
 package fr.uha.ensisa.jadoma.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 import fr.uha.ensisa.jadoma.factory.DownloadFactory;
 import fr.uha.ensisa.jadoma.model.Download;
 import fr.uha.ensisa.jadoma.util.UrlUtil;
@@ -28,10 +28,29 @@ public class ControllerFrmAddDownload {
 		if (!url.startsWith("http://"))
 			JOptionPane.showMessageDialog(frmAddDownload, "Seul le protocol HTTP est supporté actuellement",
 					"Erreur de protocol", JOptionPane.WARNING_MESSAGE);
-			
+		
+		if (!new File(frmAddDownload.getDestinationFileText()).canWrite())
+			JOptionPane.showMessageDialog(frmAddDownload, "Impossible d'écrire à l'emplacement spécifié !",
+					"Erreur", JOptionPane.WARNING_MESSAGE);
 		
 		Download dl = DownloadFactory.createDownload(UrlUtil.getFileNameFromUrl(url), url);
 		SimpleDownloadPanel downloadPanel = new SimpleDownloadPanel(dl);
+		dl.setFileDestination(frmAddDownload.getDestinationFileText() +
+				(frmAddDownload.getDestinationFileText().endsWith("/") ? "" : "/") +
+				dl.getName());
+		
+		int i = 0;
+		String originalName = dl.getName();
+		String originalNameWithoutExtension = UrlUtil.getFileNameWithoutExtension(originalName);
+		String extension = originalName.replaceAll(originalNameWithoutExtension, "");
+		while (new File(dl.getFileDestination()).exists())
+		{
+			dl.setName(originalNameWithoutExtension + "_" + i + extension);
+			dl.setFileDestination(frmAddDownload.getDestinationFileText() +
+					(frmAddDownload.getDestinationFileText().endsWith("/") ? "" : "/") +
+					dl.getName());
+			i++;
+		}
 		
 		try {
 			ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().addDownload(dl);
@@ -45,7 +64,11 @@ public class ControllerFrmAddDownload {
 		ControllerLocator.getInstance().getCtrlFrmMain().getFrmMain().pack();
 		
 		if (frmAddDownload.isCheckBoxStartAutoChecked())
-			; //TODO: launch automatically the download
+			try {
+				ControllerLocator.getInstance().getCtrlFrmMain().getDownloadManager().startDownloading(dl);
+			} catch (MalformedURLException e) {
+				System.out.println(e.getMessage());
+			}
 		
 		frmAddDownload.setVisible(false);
 	}
@@ -56,8 +79,7 @@ public class ControllerFrmAddDownload {
 	
 	public void handleButtonBrowseClick() {
 		 JFileChooser fileChooser = new JFileChooser();
-	     //TODO: start at the stored folder
-		 fileChooser.setCurrentDirectory(new java.io.File("."));
+		 fileChooser.setCurrentDirectory(new java.io.File(ControllerLocator.getInstance().getUserPreferences().getDestinationFolder()));
 		 fileChooser.setDialogTitle("Rechercher un dossier");
 		 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		 fileChooser.setAcceptAllFileFilterUsed(false);

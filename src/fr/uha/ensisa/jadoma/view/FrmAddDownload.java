@@ -83,10 +83,10 @@ public class FrmAddDownload extends JDialog {
 		this.labelTextFieldDestination = new JLabel(" Enregistrer dans le dossier :");
 		this.panelDestinationFile = new JPanel();
 		this.panelDestinationFile.setLayout(new BoxLayout(panelDestinationFile, BoxLayout.X_AXIS));
-		this.textFieldDestination = new JTextField("");
+		this.textFieldDestination = new JTextField(ControllerLocator.getInstance().getUserPreferences().getDestinationFolder());
 		this.buttonBrowse = new JButton("...");
 		this.checkBoxStartAuto = new JCheckBox("Démarrer le téléchargement automatiquement");
-		//TODO: initialize with the stored parameter
+		this.checkBoxStartAuto.setSelected(ControllerLocator.getInstance().getUserPreferences().isStartDownloadAuto());
 		this.buttonDownload = new JButton("Télécharger");
 		this.buttonCancel = new JButton("Annuler");
 		Dimension dimension = new Dimension(140, 30);
@@ -217,6 +217,10 @@ public class FrmAddDownload extends JDialog {
 	
 	public boolean isCheckBoxStartAutoChecked() {
 		return this.checkBoxStartAuto.isSelected();
+	}
+	
+	public String getDestinationFileText() {
+		return this.textFieldDestination.getText();
 	}
 	
 	protected void centerFrameInParent(JFrame parent)
