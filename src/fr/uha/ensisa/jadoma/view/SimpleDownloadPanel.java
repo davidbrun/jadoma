@@ -33,7 +33,7 @@ public class SimpleDownloadPanel extends JPanel {
 	private static final int SPACE_BETWEEN_MAIN_PANELS = 10;
 	private static final Color DOWNLOAD_ODD_BACKGROUND_COLOR = new Color(237, 241, 244);
 	private static final Color DOWNLOAD_EVEN_BACKGROUND_COLOR = new Color(255, 255, 255);
-	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = SystemColor.textHighlight;
+	private static final Color DOWNLOAD_SELECTED_BACKGROUND_COLOR = new Color(132, 198, 244);
 	
 	// SWING fields
 	private JPanel leftPanel;
